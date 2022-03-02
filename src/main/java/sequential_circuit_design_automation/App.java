@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * <p> App is the top level component which distributes all data associated
- * with our app to all objects. It is responsible for starting and killing program.
+ * with our app to all objects. It is responsible for running and killing program.
  * 
  * @author Jacob Head
  */
@@ -21,22 +21,33 @@ public class App
     private String filePath;
     private final static String FILE_EXTENSION = ".proj";
 
+    /**
+     * Class contructor. Initializes appData.
+     */
     public App() {
         this.appData = new AppData();
     }
 
-    public void start() {
+    // TODO method
+    public void run() {
 
     }
 
+    // TODO method
     public void kill() {
 
     }
 
+    /** 
+     * Retrieves the data associated with the current application
+     * 
+     * @return app data
+     */
     public AppData data() {
         return this.appData;
     }
 
+    // TODO method
     public void open() {
         String filePath = "C:/Users/jake4/OneDrive/Desktop/testReadWrite/";
         String fileName = "test";
@@ -45,6 +56,7 @@ public class App
         load();
     }
 
+    // TODO method
     public void saveAs() {
         String filePath = "C:/Users/jake4/OneDrive/Desktop/testReadWrite/";
         String fileName = "test";
@@ -86,9 +98,8 @@ public class App
      * @throws IOException If cannot initialize stream.
      * @throws ClassNotFoundException If file has been modified the typecast conversion to 
      * SerialiazableObject class will fail.
-     * @return loaded object from specified file
      */
-    public AppData load() {
+    private void load() {
         try {
             FileInputStream fileInStream = new FileInputStream(this.filePath);
             ObjectInputStream objInStream = new ObjectInputStream(fileInStream);
@@ -104,6 +115,5 @@ public class App
             System.out.println("Class not found");
             e.printStackTrace();
         }
-        return this.appData;
     }
 }
