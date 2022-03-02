@@ -9,12 +9,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
+ * Comment to test gitlab
+ */
+
+/**
  * <p> App is the top level component which distributes all data associated
  * with our app to all objects. It is responsible for running and killing program.
  * 
  * @author Jacob Head
  */
-
 public class App 
 {
     private AppData appData;
