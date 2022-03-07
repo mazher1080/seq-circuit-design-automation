@@ -4,9 +4,9 @@ import org.junit.Test;
 import org.junit.Assert;
 
 /**
- * TODO test App
+ * TODO test AppData
  */
-public class AppTest {
+public class AppDataTest {
     @Test
     public void test() {
 
