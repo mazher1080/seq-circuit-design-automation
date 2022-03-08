@@ -6,6 +6,7 @@ package sequential_circuit_design_automation.booleanLogic;
  */
 
 public enum BitValue {
+
     HIGH("1"),
     LOW("0"),
     UNKNOWN("-");
@@ -41,4 +42,5 @@ public enum BitValue {
             return BitValue.UNKNOWN;
         }
     }
+    
 }

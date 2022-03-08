@@ -1,11 +1,12 @@
 package sequential_circuit_design_automation.booleanLogic;
 
 /** 
- * <p> BitConst is an object which stores a bit value.
+ * <p> BitConst is a class which stores a bit value.
  * @author Jacob Head
  */
 
 public class BitConst extends Bit {
+
     /**
      * Class constructor. Initializes id and value.
      * @param id Bit id.
@@ -32,4 +33,5 @@ public class BitConst extends Bit {
     public String toString() {
         return this.getValue().toString();
     }
+    
 }

@@ -1,11 +1,12 @@
 package sequential_circuit_design_automation.booleanLogic;
 
 /** 
- * <p> BitVar is an object which stores a bit with an associted identifier.
+ * <p> BitVar is a class which stores a bit with an associted identifier.
  * @author Jacob Head
  */
 
 public class BitVar extends Bit {
+
     /**
      * Class constructor. Initializes id and value.
      * @param id Bit id.
@@ -13,7 +14,7 @@ public class BitVar extends Bit {
      */
     public BitVar(String id, BitValue value) {
         super(id, value);
-        assert ReservedBitIds.validateId(id);
+        assert ReservedBitIds.validateId(id) : ("Reserved Bit Id Error.");
     }
 
     /**
@@ -26,4 +27,5 @@ public class BitVar extends Bit {
     public String toString() {
         return this.id() + (this.getValue() == BitValue.LOW ? "\'" : "");
     }
+    
 }

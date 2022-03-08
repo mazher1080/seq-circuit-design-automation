@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public abstract class Bit implements Serializable {
+
     private BitValue value;
     private String id;
 
@@ -95,4 +96,5 @@ public abstract class Bit implements Serializable {
     protected void setId(String id) {
         this.id = id;
     }
+    
 }
