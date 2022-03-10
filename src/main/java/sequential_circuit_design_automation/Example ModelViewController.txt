@@ -1,0 +1,12 @@
+MainFrame is our view, we should replace appUI with with MainFrame
+AppData is our model.
+We should make a new component called controller which updates the model and ui simulataneuosly.
+
+Controller controller = new Controller(AppUI appUI, AppData appData){
+    // Example
+    // Will be called from a button press
+    addRow() {
+        appData.stateDiagram().addRow();
+        appUI.addRow(addData.stateDiagram().getRow());
+    }
+}

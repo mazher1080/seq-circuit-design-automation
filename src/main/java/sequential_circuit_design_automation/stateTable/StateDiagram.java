@@ -1,4 +1,4 @@
-package sequential_circuit_design_automation.stateDiagram;
+package sequential_circuit_design_automation.stateTable;
 
 import java.io.Serializable;
 

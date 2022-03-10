@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import sequential_circuit_design_automation.stateDiagram.StateDiagram;
-import sequential_circuit_design_automation.userInterface.AppUI;
 
 /**
  * <p> AppData is a component responsible for storing all data associated
