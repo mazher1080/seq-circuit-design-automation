@@ -1,15 +1,15 @@
-package sequential_circuit_design_automation;
+package state_table_solver;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import sequential_circuit_design_automation.stateTable.StateDiagram;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import state_table_solver.stateDiagram.StateDiagram;
+import state_table_solver.userInterface.AppUI;
 
 /**
  * <p> AppData is a component responsible for storing all data associated
