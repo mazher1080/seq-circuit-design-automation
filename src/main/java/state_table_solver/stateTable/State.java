@@ -4,55 +4,150 @@ import java.io.Serializable;
 
 import state_table_solver.booleanLogic.*;
 
+/**
+ * <p> State is a class which stores a bitproduct with an id. It auto generates the ids of the bits stored
+ * in the bit product based on encoding id appended with its index in the bit product.
+ * 
+ * @author Jacob Head
+ */
+
 public class State implements Serializable {
 
 	private BitProduct bitProduct;
-	private int stateNumber;
-	private int encodingVarCount;
+	private String id;
+	private String encodingId;
+	private int encodingCount;
+
 
 	/**
-	 * Class Constructor. Initializes with an already existing bit product.
+	 * Class Constructor. Initializes with an empty bit product.
 	 * 
-	 * @param bp the bit product to hold in the state.
+	 * @param id id of the state.
+	 * @param encodingId string representing id of the encoded bits.
 	 */
-	public State(BitProduct bp) {
-		this.bitProduct = bp;
+	public State(String id, String encodingId) {
+		this.bitProduct = new BitProduct();
+		this.id = id;
+		this.encodingId = encodingId;
+		this.encodingCount = 0;
 	}
 
+	/**
+	 * Getter for bit product.
+	 * 
+	 * @return The bit product stored in this state.
+	 */
 	public BitProduct getBitProduct() {
 		return this.bitProduct;
 	}
 
 	/**
+	 * Getter for id.
 	 * 
-	 * @param bitProduct
+	 * @return The state id.
 	 */
-	public void setBitProduct(BitProduct bitProduct) {
-		this.bitProduct = bitProduct;
-	}
-
-	public int getStateNumber() {
-		return this.stateNumber;
+	public String getId() {
+		return id;
 	}
 
 	/**
+	 * Setter for id.
 	 * 
-	 * @param stateNumber
+	 * @param id The new id to set.
 	 */
-	public void setStateNumber(int stateNumber) {
-		this.stateNumber = stateNumber;
-	}
-
-	public int getEncodingVarCount() {
-		return this.encodingVarCount;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
+	 * Getter for encoding id.
 	 * 
-	 * @param encodingVarCount
+	 * @return The encoding id.
 	 */
-	public void setEncodingVarCount(int encodingVarCount) {
-		this.encodingVarCount = encodingVarCount;
+	public String getEncodingId() {
+		return encodingId;
+	}
+
+	/**
+	 * Setter for encoding id.
+	 * 
+	 * @param encodingId The new encoding id.
+	 */
+	public void setEncodingId(String encodingId) {
+		this.encodingId = encodingId;
+		BitProduct bp = bitProduct();
+		for(int i = 0; i < bp.length(); i++) {
+			bp.get(i).setId(encodingId + Integer.toString(i));
+		}
+	}
+
+	/**
+	 * Getter for encoding count.
+	 * 
+	 * @return The number of encoding variables.
+	 */
+	public int getEncodingCount() {
+		return encodingCount;
+	}
+	
+	/**
+	 * Sets the number of Bits needed to represent the state.
+	 * Automatically readjusts the state's bit product.
+	 * 
+	 * @param encodingCount
+	 */
+	public void setEncodingCount(int encodingCount) {
+		this.encodingCount = encodingCount;
+		while(bitProduct().length() < this.encodingCount) {
+			pushBit(BitValue.LOW);
+		}
+	}
+
+	/**
+	 * Getter for bit product.
+	 * 
+	 * @return The bit product.
+	 */
+	public BitProduct bitProduct() {
+		return this.bitProduct;
+	}
+
+	/**
+	 * Adds a bit to the end bit product and auto generates its label.
+	 * 
+	 * @param bitVal value of the bit to be added.
+	 */
+	public void pushBit(BitValue bitVal) {
+		BitProduct bp = getBitProduct();
+		String bitId = encodingId + Integer.toString(bp.length());
+		getBitProduct().add(new BitVar(bitId, bitVal));
+	}
+
+	/**
+	 * Removes a bit from the end of the bit product.
+	 */
+	public void popBit() {
+		BitProduct bp = getBitProduct();
+		bp.remove(bp.length() - 1);
+	}
+
+	/**
+     * Overrides java Object toString method 
+     * @see Object
+     * 
+     * @return String representation of the state.
+     */
+	public String toString() {
+		String output = "";
+		String seperator = ".";
+		BitProduct bp = getBitProduct();
+		for(int i = bp.length() - 1; i >= 0; i--) {
+			output += bp.get(i).toString();
+			if(i != 0) {
+				output += seperator;
+			}
+		}
+		return output;
 	}
 
 }

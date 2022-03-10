@@ -11,7 +11,7 @@ import java.io.Serializable;
 public abstract class Bit implements Serializable {
 
     private BitValue value;
-    private String id;
+    protected String id;
 
     /**
      * Class Constructor.
@@ -23,6 +23,13 @@ public abstract class Bit implements Serializable {
         this.id = id;
         this.value = value;
     }
+
+    /**
+     * Setter for id.
+     * 
+     * @param id String to set bit id to be.
+     */
+    abstract public void setId(String id);
 
     /**
      * Negates the bits value.
@@ -62,15 +69,6 @@ public abstract class Bit implements Serializable {
     }
 
     /**
-     * Returns the id that represents the bit.
-     * 
-     * @return The id that represents the bit.
-     */
-    public String id() {
-        return this.id;
-    }
-
-    /**
      * Returns the value of the bit.
      * 
      * @return The value of the bit.
@@ -89,12 +87,11 @@ public abstract class Bit implements Serializable {
     }
 
     /**
-     * Setter for id.
+     * Returns the id that represents the bit.
      * 
-     * @param id String to set bit id to be.
+     * @return The id that represents the bit.
      */
-    protected void setId(String id) {
-        this.id = id;
+    public String id() {
+        return this.id;
     }
-    
 }

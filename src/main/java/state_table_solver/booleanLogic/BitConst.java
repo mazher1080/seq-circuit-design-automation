@@ -16,11 +16,22 @@ public class BitConst extends Bit {
         super(value.toString(), value);
     }
 
+    /**
+     * Setter for id. Overrides Bit.
+     * @see Bit
+     * 
+     * @param id String to set bit id to be.
+     */
+    @Override
+    public void setId(String id) {
+        return; // Do not allow overriding of a constants id.
+    }
+
     /** */
     @Override
     public void setValue(BitValue v) {
         super.setValue(v);
-        this.setId(v.toString());
+        this.id = v.toString();
     }
 
     /**

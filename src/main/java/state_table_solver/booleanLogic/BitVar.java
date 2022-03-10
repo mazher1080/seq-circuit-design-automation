@@ -18,6 +18,17 @@ public class BitVar extends Bit {
     }
 
     /**
+     * Setter for id. Overrides Bit.
+     * @see Bit
+     * 
+     * @param id String to set bit id to be.
+     */
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
      * Overrides java Object toString method 
      * @see Object
      * 
