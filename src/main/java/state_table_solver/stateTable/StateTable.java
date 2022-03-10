@@ -3,7 +3,7 @@ package state_table_solver.stateTable;
 import java.io.Serializable;
 
 // TODO entire class
-public class StateDiagram implements Serializable {
+public class StateTable implements Serializable {
     private int data;
 
     public int getData() {

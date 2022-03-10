@@ -8,8 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import state_table_solver.stateDiagram.StateDiagram;
-import state_table_solver.userInterface.AppUI;
+import state_table_solver.stateTable.StateTable;
 
 /**
  * <p> AppData is a component responsible for storing all data associated
@@ -19,16 +18,16 @@ import state_table_solver.userInterface.AppUI;
  */
 
 public class AppData {
-    private StateDiagram stateDiagram = new StateDiagram();
+    private StateTable StateTable = new StateTable();
     private String filePath;
     private final static String FILE_EXTENSION = ".proj";
     
-    public StateDiagram getStateDiagram() {
-        return this.stateDiagram;
+    public StateTable getStateTable() {
+        return this.StateTable;
     }
 
-    public void setStateDiagram(StateDiagram stateDiagram) {
-        this.stateDiagram = stateDiagram;
+    public void setStateTable(StateTable StateTable) {
+        this.StateTable = StateTable;
     }
 
 
@@ -70,7 +69,7 @@ public class AppData {
             ObjectOutputStream objStream = new ObjectOutputStream(fileStream);
 
             // Write objects to file
-            objStream.writeObject(getStateDiagram());
+            objStream.writeObject(getStateTable());
 
             objStream.close();
             fileStream.close();
@@ -95,7 +94,7 @@ public class AppData {
         try {
             FileInputStream fileInStream = new FileInputStream(getFilePath());
             ObjectInputStream objInStream = new ObjectInputStream(fileInStream);
-            setStateDiagram((StateDiagram) objInStream.readObject());
+            setStateTable((StateTable) objInStream.readObject());
             objInStream.close();
             fileInStream.close();
         } catch (FileNotFoundException e) {

@@ -2,7 +2,6 @@ package state_table_solver.userInterface;
 import java.io.Serializable;
 
 import state_table_solver.AppData;
-import state_table_solver.stateDiagram.StateDiagram;
 
 // TODO entire class
 public class AppUI implements Serializable {
