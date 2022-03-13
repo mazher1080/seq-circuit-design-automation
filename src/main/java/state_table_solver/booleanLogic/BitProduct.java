@@ -132,6 +132,7 @@ public class BitProduct implements Serializable {
      * 
      * @return String representation of the bitValue.
      */
+	@Override
 	public String toString() {
 		String output = "";
 		String seperator = ".";
