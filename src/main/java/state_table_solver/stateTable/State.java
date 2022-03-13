@@ -101,6 +101,9 @@ public class State implements Serializable {
 		while(bitProduct().length() < this.encodingCount) {
 			pushBit(BitValue.LOW);
 		}
+		while(bitProduct().length() > this.encodingCount) {
+			popBit();
+		}
 	}
 
 	/**
