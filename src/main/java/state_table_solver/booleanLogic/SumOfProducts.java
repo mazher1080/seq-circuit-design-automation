@@ -6,6 +6,7 @@ import java.io.*;
 
 /** <p> A class representing a Sum of Products form of boolean logic
  * @author Muneeb Azher
+ * @author Jacob Head
  * 
 */
 
@@ -14,11 +15,19 @@ public class SumOfProducts implements Serializable {
 	private int length;
 	private List<BitProduct> bitProducts;
 
+	/**
+	 * Class constructor. Zero argument constructor.
+	 */
 	public SumOfProducts() {
         this.length = 0;
         this.bitProducts = new ArrayList<BitProduct>();
 	}
 
+	/**
+	 * Class constructor. Multiple argument constructor.
+	 * 
+	 * @param bitProductArgs All bit products to add to the sum of product.
+	 */
 	public SumOfProducts(BitProduct... bitProductArgs) {
 		List<BitProduct> productList = new ArrayList<BitProduct>();
 		for (BitProduct bp : bitProductArgs) {
@@ -28,19 +37,40 @@ public class SumOfProducts implements Serializable {
 		this.length = bitProductArgs.length;
 	}
 
-	/** Multiplies two or more sum of products together by distributive law
+	/** 
+	 * Multiplies two or more sum of products together by distributive law.
 	 * 
-	 * @param sumOfProductArgs All sum of product arguments to be multiplited together
+	 * @param sumOfProductArgs All sum of product arguments to be multiplited together.
 	 */
-	public void distribute(SumOfProducts... sumOfProductArgs) {
-        for (SumOfProducts sp : sumOfProductArgs) {
-			for (int j = 0; j < sp.length() - 1; j++) {
-				BitProduct operand1 = sp.get(j);
-				BitProduct operand2 = sp.get(j + 1);
-				operand1.append(operand2);
-				this.add(operand1);
-			}
+	public static SumOfProducts distribute(SumOfProducts... sumOfProductArgs) {
+		if(sumOfProductArgs.length == 0)
+			return new SumOfProducts();
+		if(sumOfProductArgs.length == 1)
+			return sumOfProductArgs[0];
+		SumOfProducts result = sumOfProductArgs[0];
+        for (int i = 1; i < sumOfProductArgs.length; i++) {
+			result = distributeHelper(result, sumOfProductArgs[i]);
 		}	
+		return result;
+	}
+
+	/**
+	 * Multiplies exactly two sum of products together by distributive law.
+	 * 
+	 * @param sop1 First sum of products to distribute.
+	 * @param sop2 Second sum of products to distribute.
+	 */
+	private static SumOfProducts distributeHelper(SumOfProducts sop1, SumOfProducts sop2) {
+		SumOfProducts result = new SumOfProducts();
+		for(int i = 0; i < sop1.length(); i++) {
+			for(int j = 0; j < sop2.length(); j++) {
+				BitProduct bp = new BitProduct();
+				bp.append(sop1.get(i));
+				bp.append(sop2.get(j));
+				result.add(bp);
+			}
+		}
+		return result;
 	}
 
 	/** Adds a new sum of products to the current sum of products

@@ -18,7 +18,7 @@ import state_table_solver.stateTable.StateTable;
  */
 
 public class AppData {
-    private StateTable StateTable = new StateTable();
+    private StateTable StateTable; // = new StateTable()
     private String filePath;
     private final static String FILE_EXTENSION = ".proj";
     

@@ -54,13 +54,10 @@ public class SumOfProductsTest {
         BitProduct bits4 = new BitProduct(o, p ,q);
 
         SumOfProducts sop2 = new SumOfProducts(bits3, bits4);
-        SumOfProducts result = new SumOfProducts();
-        result.distribute(sop1, sop2);
+        SumOfProducts result = SumOfProducts.distribute(sop1, sop2);
 
-        SumOfProducts correctSums[] = {sop1, sop2};
-        for (int num = 0; num < result.length(); num++) {
-            assertEquals(correctSums[num], result);
-        }
+        String correctResult = "A.B.C'.L.M'.N + A.B.C'.O.P'.Q' + D.E.F'.L.M'.N + D.E.F'.O.P'.Q'";
+        assertEquals(correctResult, result.toString());
     }
 
     @Test

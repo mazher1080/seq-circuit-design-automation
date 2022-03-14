@@ -1,5 +1,4 @@
 package state_table_solver;
-import state_table_solver.userInterface.AppUI;
 
 /**
  * <p> App is the top level component which distributes all data associated
@@ -10,14 +9,14 @@ import state_table_solver.userInterface.AppUI;
 public class App 
 {
     private AppData appData;
-    private AppUI appUI = new AppUI(appData);
+    private Controller appUI = new Controller(appData);
 
     /**
      * Class contructor. Initializes appData.
      */
     public App() {
         this.appData = new AppData();
-        this.appUI = new AppUI(this.appData);
+        this.appUI = new Controller(this.appData);
     }
     
     // TODO method

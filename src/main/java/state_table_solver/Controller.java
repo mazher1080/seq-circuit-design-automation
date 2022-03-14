@@ -1,12 +1,10 @@
-package state_table_solver.userInterface;
+package state_table_solver;
 import java.io.Serializable;
 
-import state_table_solver.AppData;
-
 // TODO entire class
-public class AppUI implements Serializable {
+public class Controller implements Serializable {
     AppData appData;
-    public AppUI(AppData appData) {
+    public Controller(AppData appData) {
         this.appData = appData;
     }
 
