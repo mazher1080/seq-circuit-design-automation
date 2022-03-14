@@ -87,4 +87,29 @@ public class SumOfProductsTest {
         }
     }
     
+    @Test
+    public void lengthTest() {
+        Bit a = new BitVar("A", BitValue.HIGH);
+        Bit b = new BitVar("B", BitValue.LOW);
+        BitProduct operand1 = new BitProduct(a, b);
+
+        Bit c = new BitVar("C", BitValue.LOW);
+        Bit d = new BitVar("D", BitValue.HIGH);
+        BitProduct operand2 = new BitProduct(c, d);
+
+        SumOfProducts sop = new SumOfProducts(operand1, operand2);
+        int sopLength = sop.length();
+        assertEquals(2, sopLength);
+
+        Bit e = new BitVar("E", BitValue.LOW);
+        Bit f = new BitVar("F", BitValue.HIGH);
+        BitProduct operand3 = new BitProduct(e, f);
+        sop.add(operand3);
+        sopLength = sop.length();
+        assertEquals(3, sopLength);
+
+        sop.remove(1);
+        sopLength = sop.length();
+        assertEquals(2, sopLength);
+    }
 }
