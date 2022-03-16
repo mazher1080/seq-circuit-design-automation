@@ -33,12 +33,6 @@ public class MooreTable extends StateTable {
     }
 
     @Override
-    public void addEmptyRow() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void removeRow(int rowIndex) {
         assert (rowIndex >= 0 && rowIndex < this.getStateCount());
 

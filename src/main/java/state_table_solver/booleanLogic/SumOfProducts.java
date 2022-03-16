@@ -42,14 +42,13 @@ public class SumOfProducts implements Serializable {
 	 * 
 	 * @param sumOfProductArgs All sum of product arguments to be multiplited together.
 	 */
-	public static SumOfProducts distribute(SumOfProducts... sumOfProductArgs) {
+	public SumOfProducts getDistributed(SumOfProducts... sumOfProductArgs) {
 		if(sumOfProductArgs.length == 0)
-			return new SumOfProducts();
-		if(sumOfProductArgs.length == 1)
-			return sumOfProductArgs[0];
-		SumOfProducts result = sumOfProductArgs[0];
-        for (int i = 1; i < sumOfProductArgs.length; i++) {
-			result = distributeHelper(result, sumOfProductArgs[i]);
+			return null;
+		SumOfProducts result = new SumOfProducts();
+		result.append(this);
+        for (int i = 0; i < sumOfProductArgs.length; i++) {
+			result = result.getDistributedHelper(sumOfProductArgs[i]);
 		}	
 		return result;
 	}
@@ -60,12 +59,12 @@ public class SumOfProducts implements Serializable {
 	 * @param sop1 First sum of products to distribute.
 	 * @param sop2 Second sum of products to distribute.
 	 */
-	private static SumOfProducts distributeHelper(SumOfProducts sop1, SumOfProducts sop2) {
+	private SumOfProducts getDistributedHelper(SumOfProducts sop2) {
 		SumOfProducts result = new SumOfProducts();
-		for(int i = 0; i < sop1.length(); i++) {
+		for(int i = 0; i < this.length(); i++) {
 			for(int j = 0; j < sop2.length(); j++) {
 				BitProduct bp = new BitProduct();
-				bp.append(sop1.get(i));
+				bp.append(this.get(i));
 				bp.append(sop2.get(j));
 				result.add(bp);
 			}

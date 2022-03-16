@@ -54,7 +54,7 @@ public class SumOfProductsTest {
         BitProduct bits4 = new BitProduct(o, p ,q);
 
         SumOfProducts sop2 = new SumOfProducts(bits3, bits4);
-        SumOfProducts result = SumOfProducts.distribute(sop1, sop2);
+        SumOfProducts result = sop1.getDistributed(sop2);
 
         String correctResult = "A.B.C'.L.M'.N + A.B.C'.O.P'.Q' + D.E.F'.L.M'.N + D.E.F'.O.P'.Q'";
         assertEquals(correctResult, result.toString());

@@ -47,11 +47,6 @@ public abstract class StateTable implements Serializable {
 	 */
 	public abstract SumOfProducts getOutputSoP();
 
-    /**
-	 * Initializes an empty row at the bottom of the table.
-	 */
-	public abstract void addEmptyRow();
-
 	/**
      * Removes row at specified index.
 	 * 
