@@ -2,14 +2,24 @@ package state_table_solver.stateTable;
 
 import state_table_solver.booleanLogic.SumOfProducts;
 import state_table_solver.booleanLogic.Bit;
+import state_table_solver.booleanLogic.BitProduct;
+import state_table_solver.booleanLogic.BitConst;
+import state_table_solver.booleanLogic.BitValue;
 
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * <p> Moore Table is a moore implementation of the state table class. Output does not depend on 
+ * input for moore.
+ * 
+ * @author Jacob Head
+ */
+
 public class MooreTable extends StateTable {
+    
     private List<Bit> outputCol;
     
-
     /**
      * Class constructor.
      */
@@ -20,50 +30,45 @@ public class MooreTable extends StateTable {
         this.setNextLowOutputCol(this.outputCol);
     }
 
-    @Override
-    public SumOfProducts getStateSoP(String stateId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    /**
+	 * Gets the non-minimized sum of products for the output.
+	 */
     @Override
     public SumOfProducts getOutputSoP() {
-        // TODO Auto-generated method stub
-        return null;
+        SumOfProducts resultSoP = new SumOfProducts();
+        List<Bit> outputCol = getOutputCol();
+
+        for(int i = 0; i < outputCol.size(); i++) {
+            if(outputCol.get(i).getValue() == BitValue.HIGH) {
+                State curState = getCurrentStateCol().get(i);
+                BitProduct stateBits = curState.getBitProduct();
+
+                BitProduct rowBitProduct = new BitProduct();
+                rowBitProduct.append(stateBits);
+
+                resultSoP.add(rowBitProduct);
+            }
+        }
+
+        return formatSoP(resultSoP);
     }
 
+    /**
+     * Removes the output row at specified index.
+	 * 
+	 * @param rowIndex Index of the row to remove.
+	 */
     @Override
-    public void removeRow(int rowIndex) {
-        assert (rowIndex >= 0 && rowIndex < this.getStateCount());
-
-        this.getCurrentStateCol().remove(rowIndex);
-        this.getNextHighStateCol().remove(rowIndex);
-        this.getNextLowStateCol().remove(rowIndex);
+    public void removeOutputRow(int rowIndex) {
         this.getOutputCol().remove(rowIndex);
-
-        this.setStateCount(this.getStateCount() - 1);
-    }
-    
-    /**
-     * Gets the next high output. For moore table output does not depend on input.
-     * @see StateTable
-     * 
-     * @return The next high output.
-     */
-    @Override
-    public List<Bit> getNextHighOutputCol() {
-        return getOutputCol();
     }
 
     /**
-     * Gets the next low output. For moore table output does not depend on input.
-     * @see StateTable
-     * 
-     * @return The next low output.
+     * Initializes a new output row with default values.
      */
     @Override
-    public List<Bit> getNextLowOutputCol() {
-        return getOutputCol();
+    protected void addDefaultOutputRow() {
+        this.getOutputCol().add(new BitConst(BitValue.UNKNOWN));
     }
 
     /**
@@ -74,5 +79,31 @@ public class MooreTable extends StateTable {
     public List<Bit> getOutputCol() {
         return outputCol;
     }
+
+    /**
+     * Overrides java Object toString method 
+     * @see Object
+     * 
+     * @return String representation of the state.
+     */
+    @Override
+	public String toString() {
+        String columnLabels = "[ Current State, Next Low State, Next High State, Output ]\n";
+        String seperator = ", ";
+        String output = columnLabels;
+        for (int i = 0; i < this.getStateCount(); i++) {
+            String rowString = "[ ";
+            rowString += this.getCurrentStateCol().get(i).toString();
+            rowString += seperator;
+            rowString += this.getNextLowStateCol().get(i).toString();
+            rowString += seperator;
+            rowString += this.getNextHighStateCol().get(i).toString();
+            rowString += seperator;
+            rowString += this.getOutputCol().get(i).toString();
+            rowString += " ]\n";
+            output += rowString;
+        }
+		return output;
+	}
     
 }

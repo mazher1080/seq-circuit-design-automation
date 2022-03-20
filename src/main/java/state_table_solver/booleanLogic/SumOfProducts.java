@@ -53,25 +53,6 @@ public class SumOfProducts implements Serializable {
 		return result;
 	}
 
-	/**
-	 * Multiplies exactly two sum of products together by distributive law.
-	 * 
-	 * @param sop1 First sum of products to distribute.
-	 * @param sop2 Second sum of products to distribute.
-	 */
-	private SumOfProducts getDistributedHelper(SumOfProducts sop2) {
-		SumOfProducts result = new SumOfProducts();
-		for(int i = 0; i < this.length(); i++) {
-			for(int j = 0; j < sop2.length(); j++) {
-				BitProduct bp = new BitProduct();
-				bp.append(this.get(i));
-				bp.append(sop2.get(j));
-				result.add(bp);
-			}
-		}
-		return result;
-	}
-
 	/** Adds a new sum of products to the current sum of products
 	 * 
 	 * @param sop
@@ -82,6 +63,11 @@ public class SumOfProducts implements Serializable {
         }
 	}
 
+	/**
+	 * Adds a bit product to the end of the bit product list
+	 * 
+	 * @param bp Bit product to add.
+	 */
 	public void add(BitProduct bp) {
 		this.bitProducts.add(bp);
 		this.length = length() + 1;
@@ -97,6 +83,7 @@ public class SumOfProducts implements Serializable {
 	}
 
 	/** 
+	 * Getter for sum of product length.
 	 * 
 	 * @return length of SOP
 	 */
@@ -129,6 +116,26 @@ public class SumOfProducts implements Serializable {
 		   }
        }
 	   return output;
+	}
+
+	
+	/**
+	 * Multiplies exactly two sum of products together by distributive law.
+	 * 
+	 * @param sop1 First sum of products to distribute.
+	 * @param sop2 Second sum of products to distribute.
+	 */
+	private SumOfProducts getDistributedHelper(SumOfProducts sop2) {
+		SumOfProducts result = new SumOfProducts();
+		for(int i = 0; i < this.length(); i++) {
+			for(int j = 0; j < sop2.length(); j++) {
+				BitProduct bp = new BitProduct();
+				bp.append(this.get(i));
+				bp.append(sop2.get(j));
+				result.add(bp);
+			}
+		}
+		return result;
 	}
 
 }
