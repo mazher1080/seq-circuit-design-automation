@@ -6,7 +6,7 @@ import state_table_solver.userInterface.MainFrame;
 public class Main {
     public static void main( String[] args )
     {
-        MainFrame mf = new MainFrame();
+        // MainFrame mf = new MainFrame();
         System.out.println( "Hello World!" );
     }
 }

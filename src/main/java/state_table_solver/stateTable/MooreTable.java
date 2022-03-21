@@ -59,7 +59,7 @@ public class MooreTable extends StateTable {
 	 * @param rowIndex Index of the row to remove.
 	 */
     @Override
-    public void removeOutputRow(int rowIndex) {
+    protected void removeOutputRow(int rowIndex) {
         this.getOutputCol().remove(rowIndex);
     }
 
@@ -81,29 +81,38 @@ public class MooreTable extends StateTable {
     }
 
     /**
-     * Overrides java Object toString method 
-     * @see Object
+     * Returns the string representaion of the table based on setting provided.
      * 
-     * @return String representation of the state.
+     * @param isEncodedStates Whether to output the string with states encoded.
+     * @return String represenation of table.
      */
     @Override
-	public String toString() {
+    public String toStringUtility(boolean isEncodedStates) {
         String columnLabels = "[ Current State, Next Low State, Next High State, Output ]\n";
         String seperator = ", ";
         String output = columnLabels;
         for (int i = 0; i < this.getStateCount(); i++) {
             String rowString = "[ ";
-            rowString += this.getCurrentStateCol().get(i).toString();
-            rowString += seperator;
-            rowString += this.getNextLowStateCol().get(i).toString();
-            rowString += seperator;
-            rowString += this.getNextHighStateCol().get(i).toString();
-            rowString += seperator;
+            if(isEncodedStates) {
+                rowString += this.getCurrentStateCol().get(i).toEncodedString();
+                rowString += seperator;
+                rowString += this.getNextLowStateCol().get(i).toEncodedString();
+                rowString += seperator;
+                rowString += this.getNextHighStateCol().get(i).toEncodedString();
+                rowString += seperator;
+            } else {
+                rowString += this.getCurrentStateCol().get(i).toString();
+                rowString += seperator;
+                rowString += this.getNextLowStateCol().get(i).toString();
+                rowString += seperator;
+                rowString += this.getNextHighStateCol().get(i).toString();
+                rowString += seperator;
+            }
             rowString += this.getOutputCol().get(i).toString();
             rowString += " ]\n";
             output += rowString;
         }
 		return output;
-	}
+    }
     
 }

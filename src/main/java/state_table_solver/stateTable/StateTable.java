@@ -1,6 +1,7 @@
 package state_table_solver.stateTable;
 
 import state_table_solver.booleanLogic.*;
+import state_table_solver.Utilities;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public abstract class StateTable implements Serializable {
 
     public final Bit HIGH_INPUT = new BitVar("x", BitValue.HIGH);
     public final Bit LOW_INPUT = new BitVar("x", BitValue.LOW);
+    public final String ENCODING_ID = "d";
 
 	private int stateCount;
 	private List<State> currentStateCol;
@@ -41,6 +43,14 @@ public abstract class StateTable implements Serializable {
 	 * Gets the non-minimized sum of products for the output.
 	 */
 	public abstract SumOfProducts getOutputSoP();
+
+    /**
+     * Returns the string representaion of the table based on setting provided.
+     * 
+     * @param isEncodedStates Whether to output the string with states encoded.
+     * @return String represenation of table.
+     */
+    public abstract String toStringUtility(boolean isEncodedStates);
 
     /**
      * Removes the ouput row(s) from the table at specified index
@@ -71,10 +81,15 @@ public abstract class StateTable implements Serializable {
 	 * @param stateCount The new state count.
 	 */
 	public void setStateCount(int stateCount) {
-		this.stateCount = stateCount;
-        for(State s : getCurrentStateCol()) {
-            s.setEncodingCount(stateCount);
+        assert (stateCount > 0);
+        int oldEncodingCount = (int) Utilities.log2(getStateCount()) + 1;
+        int newEncodingCount = (int) Utilities.log2(stateCount) + 1;
+        if(newEncodingCount != oldEncodingCount) {
+            for(State s : getCurrentStateCol()) {
+                s.setEncodingCount(newEncodingCount);
+            }
         }
+        this.stateCount = stateCount;
 	}
 
     /**
@@ -183,10 +198,20 @@ public abstract class StateTable implements Serializable {
      * Adds a row to the bottom of the state table, initialized with
      * the specified state.
      */
-    public void addState(State state) {
-        this.getCurrentStateCol().add(state);
-        this.getNextHighStateCol().add(state);
-        this.getNextLowStateCol().add(state);
+    public void addState(String stateId) {
+        State s = new State(stateId, ENCODING_ID);
+        String encodingMap = Integer.toBinaryString(getStateCount());
+        // Set the binary encoded state value
+        for(int i = encodingMap.length() - 1; i >= 0; i--) {
+            if(encodingMap.charAt(i) == '1') {
+                s.pushBit(BitValue.HIGH);
+            } else {
+                s.pushBit(BitValue.LOW);
+            }
+        }
+        this.getCurrentStateCol().add(s);
+        this.getNextHighStateCol().add(s);
+        this.getNextLowStateCol().add(s);
         this.addDefaultOutputRow();
         this.setStateCount(this.getStateCount() + 1);
     }
@@ -205,6 +230,17 @@ public abstract class StateTable implements Serializable {
         this.removeOutputRow(rowIndex);
         this.setStateCount(this.getStateCount() - 1);
     }
+
+    /**
+     * Overrides java Object toString method 
+     * @see Object
+     * 
+     * @return String representation of the table.
+     */
+    @Override
+	public String toString() {
+        return toStringUtility(false);
+	}
 
     /**
      * Helper function. If the sum of products is empty set it to a logic low.

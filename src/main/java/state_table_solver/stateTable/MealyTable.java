@@ -40,7 +40,7 @@ public class MealyTable extends StateTable {
         }
 
         for(int i = 0; i < nextLowOutputCol.size(); i++) {
-            if(nextHighOutputCol.get(i).getValue() == BitValue.HIGH) {
+            if(nextLowOutputCol.get(i).getValue() == BitValue.HIGH) {
                 State curState = getCurrentStateCol().get(i);
                 BitProduct stateBits = curState.getBitProduct();
 
@@ -61,7 +61,7 @@ public class MealyTable extends StateTable {
 	 * @param rowIndex Index of the row to remove.
 	 */
     @Override
-    public void removeOutputRow(int rowIndex) {
+    protected void removeOutputRow(int rowIndex) {
         this.getNextHighOutputCol().remove(rowIndex);
         this.getNextLowOutputCol().remove(rowIndex);
     }
@@ -71,23 +71,38 @@ public class MealyTable extends StateTable {
      */
     @Override
     protected void addDefaultOutputRow() {
-        this.getNextHighOutputCol().remove(new BitConst(BitValue.UNKNOWN));
-        this.getNextLowOutputCol().remove(new BitConst(BitValue.UNKNOWN));
+        this.getNextHighOutputCol().add(new BitConst(BitValue.UNKNOWN));
+        this.getNextLowOutputCol().add(new BitConst(BitValue.UNKNOWN));
     }
 
+    /**
+     * Returns the string representaion of the table based on setting provided.
+     * 
+     * @param isEncodedStates Whether to output the string with states encoded.
+     * @return String represenation of table.
+     */
     @Override
-    public String toString() {
+    public String toStringUtility(boolean isEncodedStates) {
         String columnLabels = "[ Current State, Next Low State, Next High State, Low Output, High Output ]\n";
         String seperator = ", ";
         String output = columnLabels;
         for (int i = 0; i < this.getStateCount(); i++) {
             String rowString = "[ ";
-            rowString += this.getCurrentStateCol().get(i).toString();
-            rowString += seperator;
-            rowString += this.getNextLowStateCol().get(i).toString();
-            rowString += seperator;
-            rowString += this.getNextHighStateCol().get(i).toString();
-            rowString += seperator;
+            if(isEncodedStates) {
+                rowString += this.getCurrentStateCol().get(i).toEncodedString();
+                rowString += seperator;
+                rowString += this.getNextLowStateCol().get(i).toEncodedString();
+                rowString += seperator;
+                rowString += this.getNextHighStateCol().get(i).toEncodedString();
+                rowString += seperator;
+            } else {
+                rowString += this.getCurrentStateCol().get(i).toString();
+                rowString += seperator;
+                rowString += this.getNextLowStateCol().get(i).toString();
+                rowString += seperator;
+                rowString += this.getNextHighStateCol().get(i).toString();
+                rowString += seperator;
+            }
             rowString += this.getNextLowOutputCol().get(i).toString();
             rowString += seperator;
             rowString += this.getNextHighOutputCol().get(i).toString();

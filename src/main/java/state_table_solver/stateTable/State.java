@@ -135,12 +135,11 @@ public class State implements Serializable {
 	}
 
 	/**
-     * Overrides java Object toString method 
-     * @see Object
+     * Outputs a string representation of the state with its encoded bits
      * 
      * @return String representation of the state.
      */
-	public String toString() {
+	public String toEncodedString() {
 		String output = "";
 		String seperator = ".";
 		BitProduct bp = getBitProduct();
@@ -151,6 +150,17 @@ public class State implements Serializable {
 			}
 		}
 		return output;
+	}
+
+	/**
+     * Overrides java Object toString method 
+     * @see Object
+     * 
+     * @return String representation of the state.
+     */
+	// @Override
+	public String toString() {
+		return this.getId();
 	}
 
 }
