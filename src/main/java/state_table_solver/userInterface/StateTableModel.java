@@ -4,12 +4,18 @@ import state_table_solver.booleanLogic.Bit;
 import state_table_solver.stateTable.State;
 
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+import javax.swing.table.AbstractTableModel;
 
-public class StateTableModel implements TableModel {
-    private int numCols = 4;
+public abstract class StateTableModel extends AbstractTableModel {
+    private int numCols;
     private int numRows = 2;
-    private static final String[] COLUMN_LABELS = {"State", "Next State x = 0", "Next State x = 1", "Output"};
+    private final String[] COLUMN_LABELS;
+
+    public StateTableModel(String[] columnLabels, int numCols) {
+        super();
+        this.COLUMN_LABELS = columnLabels;
+        this.numCols = numCols;
+    }
 
     @Override
     public int getRowCount() {
@@ -18,7 +24,6 @@ public class StateTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        // TODO Auto-generated method stub
         return this.numCols;
     }
 
@@ -47,10 +52,7 @@ public class StateTableModel implements TableModel {
         return null;
     }
 
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        // TODO Auto-generated method stub
-    }
+    public abstract void setValueAt(Object aValue, int rowIndex, int columnIndex);
 
     @Override
     public void addTableModelListener(TableModelListener l) {
