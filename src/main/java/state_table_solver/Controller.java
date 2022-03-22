@@ -10,6 +10,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p> Controller is a class which performs operations on the app model and the app view.
+ * These operations may be called by the EventListener class.
+ * @see EventListener
+ * 
+ * @author Jacob Head
+ */
+
 // TODO entire class
 public class Controller implements Serializable {
     private AppData appData;

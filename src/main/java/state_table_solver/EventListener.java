@@ -5,6 +5,13 @@ import state_table_solver.userInterface.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * <p> EventListener is a class which listens for ui events such as button presses
+ * and performs the associated action on the controller.
+ * 
+ * @author Jacob Head
+ */
+
 public class EventListener {
     // Controller controller;
     // MainFrame view;
