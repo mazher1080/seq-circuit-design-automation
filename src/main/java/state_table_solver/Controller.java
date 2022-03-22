@@ -5,7 +5,6 @@ import state_table_solver.stateTable.MooreTable;
 import state_table_solver.stateTable.StateTable;
 import state_table_solver.userInterface.MainFrame;
 
-import javax.swing.JFileChooser;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,8 @@ import java.util.List;
  * @author Jacob Head
  */
 
-// TODO entire class
 public class Controller implements Serializable {
+
     private AppData appData;
     private MainFrame mainFrame;
 
@@ -41,11 +40,18 @@ public class Controller implements Serializable {
         return this.mainFrame;
     }
     
+    /**
+     * Initializes a new application. Creates new model and view.
+     */
     public void initApplication() {
         this.appData = new AppData();
         this.mainFrame = new MainFrame();
     }
 
+    /**
+     * Creates a new project for the application. Renders a pop up where users can
+     * specify a moore project or a mealy project.
+     */
     public void createNewProject() {
         int response = mainFrame().renderTableSelection();
 
@@ -66,6 +72,10 @@ public class Controller implements Serializable {
         System.out.println(appData().getStateTable());
     }
 
+    /**
+     * Derives the sop from the state table associated with a project.
+     * Renders a pop up which displays the minimized sum of products equations.
+     */
     public void deriveSoP() {
         List<String> boolEqnStrings = new ArrayList<String>();
         StateTable stateTable = appData().getStateTable();
@@ -87,19 +97,38 @@ public class Controller implements Serializable {
         mainFrame().renderDerivedSoP(boolEqnStrings);
     }
 
-    // public void openProjectFile() {
-    //     //Create a file chooser
-    //     final JFileChooser fc = new JFileChooser();
-    //     int returnVal = fc.showOpenDialog(mainFrame());
+    /**
+     * Opens a previously saved project file. Renders a file chooser.
+     */
+    public void openProjectFile() {
+        String filePath = mainFrame().renderFileChooser();
+        
+        if(filePath == null) return;
+        appData().open(filePath);
+        // TODO catch errors if wrong file type is specified
+    }
 
-    //     if (returnVal == JFileChooser.APPROVE_OPTION) {
-    //         File file = fc.getSelectedFile();
-    //         //This is where a real application would open the file.
-    //         log.append("Opening: " + file.getName() + "." + newline);
-    //     } else {
-    //         log.append("Open command cancelled by user." + newline);
-    //     }
-    // }
+    /**
+     * Save the current project file to a specified location.
+     * Renders a file saver.
+     */
+    public void saveAsProjectFile() {
+        String filePath = mainFrame().renderFileSaver();
+        
+        if(filePath == null) return;
+        appData().saveAs(filePath);
+    }
 
+    /**
+     * Save the project file to current filepath. If no filepath has
+     * been specified render a file saver.
+     */
+    public void saveProjectFile() {
+        if(appData().getFilePath() == null) {
+            saveAsProjectFile();
+        } else {
+            appData().save();
+        }
+    }
 
 }

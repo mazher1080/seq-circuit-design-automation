@@ -1,15 +1,20 @@
 package state_table_solver.userInterface;
 
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import java.awt.*;
 
-// TODO implement actual buttons
-import javax.swing.JButton;
+/**
+ * Toolbar is a component used to display various tool bar buttons.
+ * 
+ * @author Jacob Head
+ * 
+ */
 
 public class ToolBar extends JToolBar {
     private ToolBarButton[] buttons;
 
+    /**
+     * Class constructor. Creates tool bar and adds buttons to it.
+     */
     public ToolBar() {
         super("ToolBar", JToolBar.HORIZONTAL);
         this.setFloatable(false);
@@ -24,12 +29,21 @@ public class ToolBar extends JToolBar {
         addButtons();
     }
 
+    /**
+     * Helper function for adding toolbar buttons to tool bar.
+     */
     private void addButtons() {
         for(ToolBarButton btn : this.buttons) {
             this.add(btn);
         }
     }
 
+    /**
+     * Returns the toolbar button at specified index.
+     * 
+     * @param i The index of the button on the toolbar to get.
+     * @return Toolbar button at specified index.
+     */
     public ToolBarButton getButton(int i) {
         return buttons[i];
     }

@@ -4,6 +4,13 @@ import javax.swing.JTable;
 import javax.swing.table.*;
 import java.awt.*;
 
+/**
+ * StateTableUI is an extension of JTable which is constructed with a StateTableModel.
+ * 
+ * @author Jacob Head
+ * @author Muneeb Azher
+ */
+
 public abstract class StateTableUI extends JTable {
     public StateTableUI(Object[][] defaultRows, String[] columnLabels, int numCols) {
         super(numCols == 5 ? new MealyTableModel(columnLabels, numCols) : new MooreTableModel(columnLabels, numCols));

@@ -6,6 +6,14 @@ import state_table_solver.stateTable.State;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * StateTableModel is a class used to construct a JTable based on the
+ * necessary methods of a state table.
+ * 
+ * @author Jacob Head
+ * @author Muneeb Azher
+ */
+
 public abstract class StateTableModel extends AbstractTableModel {
     private int numCols;
     private int numRows = 2;

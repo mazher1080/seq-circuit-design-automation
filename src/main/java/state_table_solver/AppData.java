@@ -12,48 +12,71 @@ import state_table_solver.stateTable.StateTable;
 
 /**
  * <p> AppData is a component responsible for storing all data associated
- * with our app. It is referenced in app through the data method.
+ * with our app.
  * 
  * @author Jacob Head
  */
 
 public class AppData {
-    private StateTable StateTable; // = new StateTable()
+
+    private StateTable stateTable; // = new StateTable()
     private String filePath;
     private final static String FILE_EXTENSION = ".proj";
     
+    /**
+     * Getter for state table.
+     * 
+     * @return The state table.
+     */
     public StateTable getStateTable() {
-        return this.StateTable;
-    }
-
-    public void setStateTable(StateTable StateTable) {
-        this.StateTable = StateTable;
+        return this.stateTable;
     }
 
 
+    public void setStateTable(StateTable stateTable) {
+        this.stateTable = stateTable;
+    }
+
+    /**
+     * Getter for filePath.
+     * 
+     * @return The filePath.
+     */
     public String getFilePath() {
-        return filePath;
+        return filePath;    /**
+     * Setter for state table.
+     * 
+     * @param stateTable The new state table.
+     */
     }
 
+    /**
+     * Setter for file path.
+     * 
+     * @param filePath The new file path.
+     */
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
-    // TODO method
-    public void open() {
-        String filePath = "C:/Users/jake4/OneDrive/Desktop/testReadWrite/";
-        String fileName = "test";
-        setFilePath(filePath + fileName + FILE_EXTENSION);
-        // TODO implement and use the filepicker component in AppUI
+    /**
+     * Opens a state table project at a given filepath.
+     * 
+     * @param filePath The filepath to load the project from.
+     */
+    public void open(String filePath) {
+        setFilePath(filePath);
         load();
+        System.out.println(getStateTable());
     }
 
-    // TODO method
-    public void saveAs() {
-        String filePath = "C:/Users/jake4/OneDrive/Desktop/testReadWrite/";
-        String fileName = "test";
-        // TODO implement and use the filepicker component in AppUI
-        setFilePath(filePath + fileName + FILE_EXTENSION);
+    /**
+     * Saves the state table project at the specified file path.
+     * 
+     * @param filePath The location to save the state table to.
+     */
+    public void saveAs(String filePath) {
+        setFilePath(filePath + FILE_EXTENSION);
         save();
     }
 
@@ -107,4 +130,5 @@ public class AppData {
             e.printStackTrace();
         }
     }
+    
 }

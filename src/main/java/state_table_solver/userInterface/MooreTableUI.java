@@ -2,6 +2,7 @@ package state_table_solver.userInterface;
 /**
  * Used to create the User Interface for a Moore state machine project
  * @author Muneeb Azher
+ * @author Jacob Head
  */
 public class MooreTableUI extends StateTableUI {
     private static final String[] COLUMN_LABELS = {"Current State", "Next State x = 0", "Next State x = 1", "Output"};

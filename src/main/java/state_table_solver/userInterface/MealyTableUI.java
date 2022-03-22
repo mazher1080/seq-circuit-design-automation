@@ -1,7 +1,9 @@
 package state_table_solver.userInterface;
 /**
  * Used to create the User Interface for a Mealy state machine project
+ * 
  * @author Muneeb Azher
+ * @author Jacob Head
  */
 public class MealyTableUI extends StateTableUI {
     private static final String[] COLUMN_LABELS = {"Current State", "Next state x = 0", "Output x = 0", "Next state x = 1", "Output x = 1"};

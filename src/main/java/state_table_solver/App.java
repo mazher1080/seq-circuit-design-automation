@@ -8,17 +8,17 @@ package state_table_solver;
  */
 public class App 
 {
+
     private Controller controller;
     private EventListener eventListener;
 
+    /**
+     * Class constructor creates a new application.
+     */
     public App() {
         this.controller = new Controller();
         this.controller.initApplication();
         this.eventListener = new EventListener(this.controller);
     }
     
-    // TODO method
-    public void kill() {
-
-    }
 }
