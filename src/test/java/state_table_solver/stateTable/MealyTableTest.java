@@ -130,10 +130,10 @@ public class MealyTableTest {
         );
 
         SumOfProducts outputSoP = mealyTable.getOutputSoP();
-        assertEquals(outputSoP.toString(), "x.d0'.d1'.d2' + x'.d0'.d1.d2'");
+        assertEquals(outputSoP.toString(), "x.d2'.d1'.d0' + x'.d2'.d1.d0'");
 
         SumOfProducts stateSoP = mealyTable.getStateSoP("Q1");
-        assertEquals(stateSoP.toString(), "x.d0'.d1'.d2' + x.d0'.d1.d2' + x'.d0'.d1'.d2");
+        assertEquals(stateSoP.toString(), "x.d2'.d1'.d0' + x.d2'.d1.d0' + x'.d2.d1'.d0'");
     }
 
 }

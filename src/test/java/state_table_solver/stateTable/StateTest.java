@@ -49,7 +49,7 @@ public class StateTest {
     @Test
     public void encodingCountTest() {
         State s1 = new State("Q0", "d");
-        BitValue[] expectedBitVals = {BitValue.HIGH, BitValue.LOW, BitValue.LOW};
+        BitValue[] expectedBitVals = {BitValue.LOW, BitValue.LOW, BitValue.HIGH};
 
         s1.pushBit(BitValue.HIGH);
         s1.pushBit(BitValue.LOW);
@@ -59,7 +59,7 @@ public class StateTest {
         assertEquals(s1.getEncodingCount(), 3);
         for(int i = 0; i < s1.bitProduct().length(); i++) {
             Bit b = s1.bitProduct().get(i);
-            String expectedId = 'd' + Integer.toString(i);
+            String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
             BitValue expectedBitVal = expectedBitVals[i];
             assertEquals(b.id(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);
@@ -71,8 +71,8 @@ public class StateTest {
         assertEquals(s1.getEncodingCount(), 2);
         for(int i = 0; i < s1.bitProduct().length(); i++) {
             Bit b = s1.bitProduct().get(i);
-            String expectedId = 'd' + Integer.toString(i);
-            BitValue expectedBitVal = expectedBitVals[i];
+            String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
+            BitValue expectedBitVal = expectedBitVals[i + 1];
             assertEquals(b.id(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);
         }

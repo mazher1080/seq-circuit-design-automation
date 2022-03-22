@@ -126,10 +126,10 @@ public class MooreTableTest {
         );
 
         SumOfProducts outputSoP = mooreTable.getOutputSoP();
-        assertEquals(outputSoP.toString(), "d0'.d1'.d2' + d0'.d1.d2'");
+        assertEquals(outputSoP.toString(), "d2'.d1'.d0' + d2'.d1.d0'");
 
         SumOfProducts stateSoP = mooreTable.getStateSoP("Q1");
-        assertEquals(stateSoP.toString(), "x.d0'.d1'.d2' + x.d0'.d1.d2' + x'.d0'.d1'.d2");
+        assertEquals(stateSoP.toString(), "x.d2'.d1'.d0' + x.d2'.d1.d0' + x'.d2.d1'.d0'");
     }
 
 }

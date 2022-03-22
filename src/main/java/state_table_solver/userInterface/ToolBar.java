@@ -29,4 +29,8 @@ public class ToolBar extends JToolBar {
             this.add(btn);
         }
     }
+
+    public ToolBarButton getButton(int i) {
+        return buttons[i];
+    }
 }

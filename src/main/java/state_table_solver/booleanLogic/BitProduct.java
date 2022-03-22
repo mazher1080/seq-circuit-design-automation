@@ -78,6 +78,17 @@ public class BitProduct implements Serializable {
 	}
 
 	/**
+	 * Adds bit to the front of bit product.
+	 * 
+	 * @param b The bit to add.
+	 */
+	public void addFront(Bit b) {
+		getBits().add(0, b);
+		setLength(length() + 1);
+		setHighBitCountBasedOn(b, true);
+	}
+
+	/**
 	 * Appends two bitProducts together.
 	 * 
 	 * @param bitProduct the bit product to append to the current bit product.

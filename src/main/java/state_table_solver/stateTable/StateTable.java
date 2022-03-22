@@ -74,6 +74,16 @@ public abstract class StateTable implements Serializable {
 	public int getStateCount() {
 		return this.stateCount;
 	}
+    
+    public SumOfProducts getMinStateSoP(String stateId) {
+        // TODO Actually minimize the sop using logic minimization strategy
+        return getStateSoP(stateId);
+    }
+
+    public SumOfProducts getMinOutputSoP() {
+        // TODO Actually minimize the sop using logic minimization strategy
+        return getOutputSoP();
+    }
 
 	/**
      * Setter for state count. Updates the state encoding on all states.

@@ -77,7 +77,7 @@ public class State implements Serializable {
 		this.encodingId = encodingId;
 		BitProduct bp = bitProduct();
 		for(int i = 0; i < bp.length(); i++) {
-			bp.get(i).setId(encodingId + Integer.toString(i));
+			bp.get(i).setId(encodingId + Integer.toString(bp.length() - 1 - i));
 		}
 	}
 
@@ -123,7 +123,7 @@ public class State implements Serializable {
 	public void pushBit(BitValue bitVal) {
 		BitProduct bp = getBitProduct();
 		String bitId = encodingId + Integer.toString(bp.length());
-		getBitProduct().add(new BitVar(bitId, bitVal));
+		getBitProduct().addFront(new BitVar(bitId, bitVal));
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class State implements Serializable {
 	 */
 	public void popBit() {
 		BitProduct bp = getBitProduct();
-		bp.remove(bp.length() - 1);
+		bp.remove(0);
 	}
 
 	/**
@@ -143,9 +143,9 @@ public class State implements Serializable {
 		String output = "";
 		String seperator = ".";
 		BitProduct bp = getBitProduct();
-		for(int i = bp.length() - 1; i >= 0; i--) {
+		for(int i = 0; i < bp.length(); i++) {
 			output += bp.get(i).toString();
-			if(i != 0) {
+			if(i != bp.length() - 1) {
 				output += seperator;
 			}
 		}

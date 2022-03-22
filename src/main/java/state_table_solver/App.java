@@ -8,28 +8,17 @@ package state_table_solver;
  */
 public class App 
 {
-    private AppData appData;
-    private Controller appUI = new Controller(appData);
+    private Controller controller;
+    private EventListener eventListener;
 
-    /**
-     * Class contructor. Initializes appData.
-     */
     public App() {
-        this.appData = new AppData();
-        this.appUI = new Controller(this.appData);
+        this.controller = new Controller();
+        this.controller.initApplication();
+        this.eventListener = new EventListener(this.controller);
     }
     
     // TODO method
     public void kill() {
 
-    }
-
-    /** 
-     * Retrieves the data associated with the current application
-     * 
-     * @return app data
-     */
-    public AppData getData() {
-        return this.appData;
     }
 }
