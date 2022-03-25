@@ -61,7 +61,7 @@ public class StateTest {
             Bit b = s1.bitProduct().get(i);
             String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
             BitValue expectedBitVal = expectedBitVals[i];
-            assertEquals(b.id(), expectedId);
+            assertEquals(b.getId(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);
         }
 
@@ -73,7 +73,7 @@ public class StateTest {
             Bit b = s1.bitProduct().get(i);
             String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
             BitValue expectedBitVal = expectedBitVals[i + 1];
-            assertEquals(b.id(), expectedId);
+            assertEquals(b.getId(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);
         }
 

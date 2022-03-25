@@ -1,6 +1,7 @@
 package state_table_solver.userInterface;
 /**
  * Used to create the User Interface for a Moore state machine project
+ * 
  * @author Muneeb Azher
  * @author Jacob Head
  */

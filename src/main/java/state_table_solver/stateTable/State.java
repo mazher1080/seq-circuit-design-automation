@@ -2,6 +2,7 @@ package state_table_solver.stateTable;
 
 import java.io.Serializable;
 
+import state_table_solver.VHDLSignal;
 import state_table_solver.booleanLogic.*;
 
 /**
@@ -11,7 +12,7 @@ import state_table_solver.booleanLogic.*;
  * @author Jacob Head
  */
 
-public class State implements Serializable {
+public class State implements VHDLSignal, Serializable {
 
 	private BitProduct bitProduct;
 	private String id;
@@ -46,6 +47,7 @@ public class State implements Serializable {
 	 * 
 	 * @return The state id.
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -55,6 +57,7 @@ public class State implements Serializable {
 	 * 
 	 * @param id The new id to set.
 	 */
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}

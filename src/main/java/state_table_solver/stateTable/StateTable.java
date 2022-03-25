@@ -5,6 +5,7 @@ import state_table_solver.Utilities;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.io.Serializable;
 
 /**
@@ -19,6 +20,7 @@ public abstract class StateTable implements Serializable {
     public final Bit HIGH_INPUT = new BitVar("x", BitValue.HIGH);
     public final Bit LOW_INPUT = new BitVar("x", BitValue.LOW);
     public final String ENCODING_ID = "d";
+    private final LogicMinimizer logicMinimizer = new QMAlgorithm();
 
 	private int stateCount;
 	private List<State> currentStateCol;
@@ -75,14 +77,29 @@ public abstract class StateTable implements Serializable {
 		return this.stateCount;
 	}
     
+    /**
+     * Minimizes the specified state's sum of products, using the 
+     * logic minimizer algorithm.
+     * @see LogicMinimizer
+     * 
+     * @param stateId The id of the state to find sum of products for.
+     * @return The minimized sop.
+     */
     public SumOfProducts getMinStateSoP(String stateId) {
-        // TODO Actually minimize the sop using logic minimization strategy
-        return getStateSoP(stateId);
+        SumOfProducts sop = getStateSoP(stateId);
+        return logicMinimizer.minimizeSoP(sop);
     }
 
+    /**
+     * Minimizes the outputs sum of products, using the 
+     * logic minimizer algorithm.
+     * @see LogicMinimizer
+     * 
+     * @return The minimized sop.
+     */
     public SumOfProducts getMinOutputSoP() {
-        // TODO Actually minimize the sop using logic minimization strategy
-        return getOutputSoP();
+        SumOfProducts sop = getOutputSoP();
+        return logicMinimizer.minimizeSoP(sop);
     }
 
 	/**

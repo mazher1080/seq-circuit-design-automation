@@ -2,13 +2,15 @@ package state_table_solver.booleanLogic;
 
 import java.io.Serializable;
 
+import state_table_solver.VHDLSignal;
+
 /**
  * <p> Bit is an abstract class used to store bits which can be associated
  * with a variable and/or a constant.
  * @author Jacob Head
  */
 
-public abstract class Bit implements Serializable {
+public abstract class Bit implements VHDLSignal, Serializable {
 
     private BitValue value;
     protected String id;
@@ -29,6 +31,7 @@ public abstract class Bit implements Serializable {
      * 
      * @param id String to set bit id to be.
      */
+    @Override
     abstract public void setId(String id);
 
     /**
@@ -55,7 +58,7 @@ public abstract class Bit implements Serializable {
      * @return True if the both bits have the same id.
      */
     public boolean equalsId(Bit b) {
-        return this.id() == b.id();
+        return this.getId() == b.getId();
     }
 
     /**
@@ -91,7 +94,8 @@ public abstract class Bit implements Serializable {
      * 
      * @return The id that represents the bit.
      */
-    public String id() {
+    @Override
+    public String getId() {
         return this.id;
     }
 }

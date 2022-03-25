@@ -36,7 +36,7 @@ public class BitVar extends Bit {
      */
     @Override
     public String toString() {
-        return this.id() + (this.getValue() == BitValue.LOW ? "\'" : "");
+        return this.getId() + (this.getValue() == BitValue.LOW ? "\'" : "");
     }
     
 }
