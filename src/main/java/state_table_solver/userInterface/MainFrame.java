@@ -9,9 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.TableColumn;
+import state_table_solver.stateTable.State;
 import javax.swing.JOptionPane;
-
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * <p> The MainFrame is the view of the application. It renders a GUI for
@@ -19,6 +21,7 @@ import java.awt.*;
  * @see javax.swing
  * 
  * @author Jacob Head
+ * @author Muneeb Azher
  */
 
 public class MainFrame extends JFrame {
@@ -39,6 +42,19 @@ public class MainFrame extends JFrame {
         this.toolBar = new ToolBar();
         this.stateTableUI = new MooreTableUI();
         this.mainPanel = new JPanel();
+
+        ArrayList<State> listNextState = new ArrayList<State>();
+        listNextState.add(new State("A", "d"));
+        listNextState.add(new State("B", "d"));
+        listNextState.add(new State("C", "d"));
+        listNextState.add(new State("D", "d"));
+
+        TableColumn nextStatecol0 = stateTableUI.getColumnModel().getColumn(1);
+        TableColumn nextStatecol1 = stateTableUI.getColumnModel().getColumn(2);
+        nextStatecol0.setCellEditor(new NextStateCellEditor(listNextState));
+        nextStatecol0.setCellRenderer(new NextStateCellRenderer(listNextState));
+        nextStatecol1.setCellEditor(new NextStateCellEditor(listNextState));
+        nextStatecol1.setCellRenderer(new NextStateCellRenderer(listNextState));
 
         JScrollPane jPane = new JScrollPane(this.stateTableUI);
         this.stateTableUI.setPreferredScrollableViewportSize(this.stateTableUI.getPreferredSize());
