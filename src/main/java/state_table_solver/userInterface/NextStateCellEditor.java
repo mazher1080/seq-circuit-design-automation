@@ -9,14 +9,10 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 import state_table_solver.stateTable.State;
-<<<<<<< HEAD
 /**
  * State cell editor for next state columns in JTable
  * @author Muneeb Azher
  */
-=======
-
->>>>>>> 98cbb1fe3dd513343c664ebe972c14440c85a3bf
 public class NextStateCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
     private State nextState;
     private ArrayList<State> listNextState;
