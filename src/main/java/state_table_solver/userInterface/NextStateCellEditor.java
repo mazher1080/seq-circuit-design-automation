@@ -1,4 +1,5 @@
 package state_table_solver.userInterface;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

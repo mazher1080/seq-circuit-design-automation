@@ -17,6 +17,7 @@ public abstract class StateTableUI extends JTable {
         JTableHeader th = this.getTableHeader();
         th.setReorderingAllowed(false); // Disable column moving
         th.setResizingAllowed(false); // Disable column resizing
+        this.setSelectionForeground(Color.WHITE);
     }
 
     public abstract int getNumCols();
