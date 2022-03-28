@@ -19,6 +19,9 @@ public abstract class StateTable implements Serializable {
 
     public final Bit HIGH_INPUT = new BitVar("x", BitValue.HIGH);
     public final Bit LOW_INPUT = new BitVar("x", BitValue.LOW);
+    public final Bit HIGH_OUTPUT = new BitVar("y", BitValue.HIGH);
+    public final Bit UNKNOWN_OUTPUT = new BitVar("y", BitValue.UNKNOWN);
+    public final Bit LOW_OUTPUT = new BitVar("y", BitValue.LOW);
     public final String ENCODING_ID = "d";
     private final LogicMinimizer logicMinimizer = new QMAlgorithm();
 

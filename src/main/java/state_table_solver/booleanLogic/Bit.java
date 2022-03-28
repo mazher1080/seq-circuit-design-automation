@@ -2,7 +2,7 @@ package state_table_solver.booleanLogic;
 
 import java.io.Serializable;
 
-import state_table_solver.VHDLSignal;
+import state_table_solver.VHDLGeneration.VHDLSignal;
 
 /**
  * <p> Bit is an abstract class used to store bits which can be associated

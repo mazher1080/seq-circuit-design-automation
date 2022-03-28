@@ -1,58 +1,179 @@
 package state_table_solver.VHDLGeneration;
 
-import java.io.*;
-
 import state_table_solver.AppData;
+import state_table_solver.stateTable.StateTable;
+import state_table_solver.VHDLGeneration.condition.*;
+import state_table_solver.booleanLogic.BitValue;
 
-public class VHDLFileWriter {
-    public String entityName = "testEntity";
-    public String inputName = "x";
-    public String outputName = "y";
-    public String stateTypes = "Q1, Q2, Q3, Q4";
-    public String initialState = "Q1";
+public class VHDLFileWriter extends VHDLWritableData {
+    public String entityName;
     public String clockEdge = "1";
 
     private AppData appData;
-    private File file;
-    private PrintWriter printWriter;
-    private String currentIndentation = "";
 
-    public VHDLFileWriter(String filePath, AppData appData) {
+    public VHDLFileWriter(String filePath, String fileName, AppData appData) {
+        super(new FileWriteManager(filePath));
         this.appData = appData;
-        File file = new File(filePath);
-        this.file = file;
+        this.entityName = fileName;
     }
 
-    public void startWriting() {
-        try {
-            PrintWriter pw = new PrintWriter(file);
-            this.printWriter = pw;
-        } catch(FileNotFoundException fn) {
-            System.out.println("ERR");
+    private VHDLSignal getInitialState() {
+        return this.appData.getStateTable().getCurrentStateCol().get(0);
+    }
+
+    private String getStateListString() {
+        String output = "";
+        StateTable stTable = this.appData.getStateTable();
+        for(int i = 0; i < stTable.getCurrentStateCol().size(); i++) {
+            if(i != 0) {
+                output += ", ";
+            }
+            output += stTable.getCurrentStateCol().get(i);
+        }
+        return output;
+    }
+
+    private void writeStateTransitionString() {
+        StateTable stTable = this.appData.getStateTable();
+        VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
+        VHDLCondition lowVal = new Var(new VHDLSignalVar("'0'"));
+
+        for(int i = 0; i < stTable.getCurrentStateCol().size(); i++ ) {
+            VHDLSignal stateSig = stTable.getCurrentStateCol().get(i);
+            VHDLStateTransition stateTransition = new VHDLStateTransition(stateSig, getFileWriteManager());
+
+            VHDLSignal highInputState = stTable.getNextHighStateCol().get(i);
+            VHDLCondition highInputCondition = new Equal(stTable.HIGH_INPUT, highVal);
+
+            VHDLSignal lowInputState = stTable.getNextLowStateCol().get(i);
+            VHDLCondition lowInputCondition = new Equal(stTable.HIGH_INPUT, lowVal);
+
+            VHDLConditionalSignal highConditionalSignal = 
+                new VHDLConditionalSignal(highInputState, highInputCondition, getFileWriteManager());
+            VHDLConditionalSignal lowConditionalSignal = 
+                new VHDLConditionalSignal(lowInputState, lowInputCondition, getFileWriteManager());
+
+            stateTransition.addNextConditionalState(highConditionalSignal);
+            stateTransition.addNextConditionalState(lowConditionalSignal);
+            stateTransition.writeCaseString("current_state");
         }
     }
 
-    public void endWriting() {
-        this.printWriter.close();
-    }
+    private void writeOutputGeneration() {
+        StateTable stTable = this.appData.getStateTable();
+        VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
+        VHDLCondition lowVal = new Var(new VHDLSignalVar("'0'"));
+        VHDLCondition currentState = new Var(new VHDLSignalVar("current_state"));
 
-    public void indent() {
-        this.currentIndentation += "\t";
-    }
+        VHDLCondition outputLowInputCondition = null;
+        VHDLCondition outputHighInputCondition = null;
+        VHDLCondition outputBothInputCondition = null;
 
-    public void unIndent() {
-        int length = this.currentIndentation.length();
-        if(length >= 1) {
-            this.currentIndentation = this.currentIndentation.substring(0, length - 1);
+        for(int i = 0; i < stTable.getCurrentStateCol().size(); i++ ) {
+            VHDLSignal stateSig = stTable.getCurrentStateCol().get(i);
+            VHDLCondition stateCondition = new Equal(currentState, stateSig);
+            BitValue nextLowOutput = stTable.getNextLowOutputCol().get(i).getValue();
+            BitValue nextHighOutput = stTable.getNextHighOutputCol().get(i).getValue();
+
+            if (nextHighOutput == BitValue.HIGH && nextLowOutput == BitValue.HIGH) {
+                outputBothInputCondition = outputBothInputCondition != null 
+                    ? new Or(outputBothInputCondition, stateCondition)
+                    : stateCondition;
+            } else if(nextHighOutput == BitValue.HIGH) {
+                outputHighInputCondition = outputHighInputCondition != null 
+                    ? new Or(outputHighInputCondition, stateCondition)
+                    : stateCondition;
+            } else if(nextLowOutput == BitValue.HIGH) {
+                outputLowInputCondition = outputLowInputCondition != null
+                    ? new Or(outputLowInputCondition, stateCondition)
+                    : stateCondition;
+            }
         }
-    }
+        VHDLCondition highInput = new Equal(stTable.HIGH_INPUT, highVal);
+        VHDLCondition lowInput = new Equal(stTable.HIGH_INPUT, lowVal);
 
-    public void writeLine(String s) {
-        this.printWriter.println(this.currentIndentation + s);
-    }
+        outputLowInputCondition = outputLowInputCondition != null
+            ? new And(lowInput, outputLowInputCondition)
+            : null;
+        
+        outputHighInputCondition = outputHighInputCondition != null 
+            ? new And(highInput, outputHighInputCondition)
+            : null;
+        
+        VHDLCondition outputCondition = null;
+        outputCondition = outputBothInputCondition != null 
+            ? outputBothInputCondition
+            : null;
 
-    private void n() {
-        writeLine("");
+        if(outputCondition != null) {
+            outputCondition = outputLowInputCondition != null
+                ? new Or(outputCondition, outputLowInputCondition)
+                : outputCondition;
+        } else {
+            outputCondition = outputLowInputCondition != null
+                ? outputLowInputCondition
+                : null;
+        }
+
+        if(outputCondition != null) {
+            outputCondition = outputHighInputCondition != null
+                ? new Or(outputCondition, outputHighInputCondition)
+                : outputCondition;
+        } else {
+            outputCondition = outputHighInputCondition != null
+                ? outputHighInputCondition
+                : null;
+        }
+
+        VHDLConditionalSignal conditionalOutput = new VHDLConditionalSignal(
+            stTable.HIGH_OUTPUT, 
+            outputCondition, 
+            getFileWriteManager()
+        );
+        conditionalOutput.writeConditionalAssignmentString();
+        // StateTable stTable = this.appData.getStateTable();
+        // VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
+        // VHDLCondition lowVal = new Var(new VHDLSignalVar("'0'"));
+        // VHDLCondition currentState = new Var(new VHDLSignalVar("current_state"));
+
+        // VHDLCondition outputCondition = null;
+        // for(int i = 0; i < stTable.getCurrentStateCol().size(); i++ ) {
+        //     VHDLSignal stateSig = stTable.getCurrentStateCol().get(i);
+        //     VHDLCondition stateCondition = new Equal(currentState, stateSig);
+        //     BitValue nextLowOutput = stTable.getNextLowOutputCol().get(i).getValue();
+        //     BitValue nextHighOutput = stTable.getNextHighOutputCol().get(i).getValue();
+
+        //     if (nextHighOutput == BitValue.HIGH && nextLowOutput == BitValue.HIGH) {
+        //         if(outputCondition == null) {
+        //             outputCondition = stateCondition;
+        //         } else {
+        //             outputCondition = new Or(outputCondition, stateCondition);
+        //         }
+        //     } else if(nextHighOutput == BitValue.HIGH) {
+        //         VHDLCondition highInput = new Equal(stTable.HIGH_INPUT, highVal);
+        //         VHDLCondition stateAndInput = new And(stateCondition, highInput);
+        //         if(outputCondition == null) {
+        //             outputCondition = stateAndInput;
+        //         } else {
+        //             outputCondition = new Or(outputCondition, stateAndInput);
+        //         }
+        //     } else if(nextLowOutput == BitValue.HIGH) {
+        //         VHDLCondition lowInput = new Equal(stTable.HIGH_INPUT, lowVal);
+        //         VHDLCondition stateAndInput = new And(stateCondition, lowInput);
+        //         if(outputCondition == null) {
+        //             outputCondition = stateAndInput;
+        //         } else {
+        //             outputCondition = new Or(outputCondition, stateAndInput);
+        //         }
+        //     }
+        // }
+
+        // VHDLConditionalSignal conditionalOutput = new VHDLConditionalSignal(
+        //     stTable.HIGH_OUTPUT, 
+        //     outputCondition, 
+        //     getFileWriteManager()
+        // );
+        // conditionalOutput.writeConditionalAssignmentString();
     }
 
     private void writeImports() {
@@ -63,9 +184,9 @@ public class VHDLFileWriter {
     private void writeEntity() {
         writeLine("entity " + this.entityName + " is");
         indent();
-        writeLine("port(clk, " + this.inputName + " : in std_logic;");
+        writeLine("port(clk, " + this.appData.getStateTable().HIGH_INPUT.getId() + " : in std_logic;");
         indent();
-        writeLine(this.outputName + " : out std_logic);");
+        writeLine(this.appData.getStateTable().HIGH_OUTPUT.getId() + " : out std_logic);");
         unIndent(); unIndent();
         writeLine("end " + this.entityName + ";");
     }
@@ -74,8 +195,8 @@ public class VHDLFileWriter {
         writeLine("architecture datapath of " + this.entityName + " is");
         indent();
         writeLine("");
-        writeLine("type state_type is (" + this.stateTypes + ")");
-        writeLine("signal current_state, next_state : state_type := " + this.initialState);
+        writeLine("type state_type is (" + getStateListString() + ");");
+        writeLine("signal current_state, next_state : state_type := " + getInitialState().getId() + ";");
         writeLine("");
         unIndent();
         writeLine("begin");
@@ -93,6 +214,9 @@ public class VHDLFileWriter {
         indent();
         writeStateTransition();
         n();
+        writeNextStateGeneration();
+        n();
+        writeOutputGeneration();
         unIndent();
     }
 
@@ -107,24 +231,25 @@ public class VHDLFileWriter {
     }
 
     private void writeNextStateGeneration() {
-        writeLine("process(current_state, " + this.inputName + ")");
+        writeLine("process(current_state, " + this.appData.getStateTable().HIGH_INPUT.getId()  + ")");
         writeLine("begin");
+        indent();
+        writeLine("case current_state is");
+        indent();
+        writeStateTransitionString();
+        unIndent();
+        writeLine("end case;");
+        unIndent();
         writeLine("end process;");
     }
 
-    private void writeFile() {
+    public void writeFile() {
+        startWriting();
         writeImports();
         n();
         writeEntity();
         n();
         writeArchitecture();
+        endWriting();
     }
-
-    public static void main(String[] args) {
-        VHDLFileWriter myWriter = new VHDLFileWriter("C:/Users/jake4/OneDrive/Desktop/testProj/testProj3.txt");
-        myWriter.startWriting();
-        myWriter.writeFile();
-        myWriter.endWriting();
-    }
-
 }

@@ -91,7 +91,7 @@ public class Controller implements Serializable {
             boolEqnStrings.add(boolEqn);
         }
         String minOutputSoPString = stateTable.getMinOutputSoP().toString();
-        String outputBoolEqn = "y = " + minOutputSoPString;
+        String outputBoolEqn = stateTable.HIGH_OUTPUT.getId() + " = " + minOutputSoPString;
         boolEqnStrings.add(outputBoolEqn);
 
         mainFrame().renderDerivedSoP(boolEqnStrings);
