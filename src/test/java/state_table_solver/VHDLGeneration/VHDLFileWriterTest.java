@@ -23,7 +23,7 @@ public class VHDLFileWriterTest {
         stTable.getNextHighOutputCol().set(2, new BitConst(BitValue.HIGH));
         stTable.getNextLowOutputCol().set(2, new BitConst(BitValue.HIGH));
 
-        VHDLFileWriter myWriter = new VHDLFileWriter("C:/Users/jake4/OneDrive/Desktop/testProj/testProj3.vhd", "testProj3", appData);
+        VHDLFileWriter myWriter = new VHDLFileWriter("C:/Users/jake4/OneDrive/Desktop/testProj/testProj3", appData);
         myWriter.writeFile();
     }
 }

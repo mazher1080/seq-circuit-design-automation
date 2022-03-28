@@ -3,39 +3,39 @@ package state_table_solver.VHDLGeneration;
 public abstract class VHDLWritableData {
     private FileWriteManager fileWriteManager;
 
-    public VHDLWritableData(FileWriteManager fileWriteManager) {
+    protected VHDLWritableData(FileWriteManager fileWriteManager) {
         this.fileWriteManager = fileWriteManager;
     }
 
-    public void startWriting() {
+    protected void startWriting() {
         fileWriteManager.startWriting();
     }
 
-    public void endWriting() {
+    protected void endWriting() {
         fileWriteManager.endWriting();
     }
 
-    public void writeLine(String s) {
+    protected void writeLine(String s) {
         fileWriteManager.writeLine(s);
     }
 
-    public void n() {
+    protected void n() {
         fileWriteManager.n();
     }
 
-    public void indent() {
+    protected void indent() {
         fileWriteManager.indent();
     }
 
-    public void unIndent() {
+    protected void unIndent() {
         fileWriteManager.unIndent();
     }
 
-    public String indentation() {
+    protected String indentation() {
         return fileWriteManager.getCurrentIndentation();
     }
 
-    public FileWriteManager getFileWriteManager() {
+    protected FileWriteManager getFileWriteManager() {
         return this.fileWriteManager;
     }
 }

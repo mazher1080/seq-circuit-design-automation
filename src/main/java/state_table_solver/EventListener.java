@@ -79,6 +79,17 @@ public class EventListener {
                 controller.deriveSoP();
             }
         });
+
+        /**
+         * Connecting the Derive toolbar button's action listener 
+         * to controller's deriveSoP method.
+         */
+        view.getToolBarButton(5).addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.exportVHDL();
+            }
+        });
     }
 
 }

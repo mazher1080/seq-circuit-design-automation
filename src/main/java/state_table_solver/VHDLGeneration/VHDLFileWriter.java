@@ -1,20 +1,23 @@
 package state_table_solver.VHDLGeneration;
 
+import java.io.File;
+
 import state_table_solver.AppData;
 import state_table_solver.stateTable.StateTable;
 import state_table_solver.VHDLGeneration.condition.*;
 import state_table_solver.booleanLogic.BitValue;
 
 public class VHDLFileWriter extends VHDLWritableData {
-    public String entityName;
-    public String clockEdge = "1";
-
+    private static final String FILE_EXTENSION = ".vhd";
+    private String entityName;
+    private String clockEdge = "1";
     private AppData appData;
 
-    public VHDLFileWriter(String filePath, String fileName, AppData appData) {
-        super(new FileWriteManager(filePath));
+    public VHDLFileWriter(String filePath, AppData appData) {
+        super(new FileWriteManager(filePath + FILE_EXTENSION));
         this.appData = appData;
-        this.entityName = fileName;
+        File f = new File(filePath + FILE_EXTENSION);
+        this.entityName = f.getName();
     }
 
     private VHDLSignal getInitialState() {
@@ -131,49 +134,6 @@ public class VHDLFileWriter extends VHDLWritableData {
             getFileWriteManager()
         );
         conditionalOutput.writeConditionalAssignmentString();
-        // StateTable stTable = this.appData.getStateTable();
-        // VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
-        // VHDLCondition lowVal = new Var(new VHDLSignalVar("'0'"));
-        // VHDLCondition currentState = new Var(new VHDLSignalVar("current_state"));
-
-        // VHDLCondition outputCondition = null;
-        // for(int i = 0; i < stTable.getCurrentStateCol().size(); i++ ) {
-        //     VHDLSignal stateSig = stTable.getCurrentStateCol().get(i);
-        //     VHDLCondition stateCondition = new Equal(currentState, stateSig);
-        //     BitValue nextLowOutput = stTable.getNextLowOutputCol().get(i).getValue();
-        //     BitValue nextHighOutput = stTable.getNextHighOutputCol().get(i).getValue();
-
-        //     if (nextHighOutput == BitValue.HIGH && nextLowOutput == BitValue.HIGH) {
-        //         if(outputCondition == null) {
-        //             outputCondition = stateCondition;
-        //         } else {
-        //             outputCondition = new Or(outputCondition, stateCondition);
-        //         }
-        //     } else if(nextHighOutput == BitValue.HIGH) {
-        //         VHDLCondition highInput = new Equal(stTable.HIGH_INPUT, highVal);
-        //         VHDLCondition stateAndInput = new And(stateCondition, highInput);
-        //         if(outputCondition == null) {
-        //             outputCondition = stateAndInput;
-        //         } else {
-        //             outputCondition = new Or(outputCondition, stateAndInput);
-        //         }
-        //     } else if(nextLowOutput == BitValue.HIGH) {
-        //         VHDLCondition lowInput = new Equal(stTable.HIGH_INPUT, lowVal);
-        //         VHDLCondition stateAndInput = new And(stateCondition, lowInput);
-        //         if(outputCondition == null) {
-        //             outputCondition = stateAndInput;
-        //         } else {
-        //             outputCondition = new Or(outputCondition, stateAndInput);
-        //         }
-        //     }
-        // }
-
-        // VHDLConditionalSignal conditionalOutput = new VHDLConditionalSignal(
-        //     stTable.HIGH_OUTPUT, 
-        //     outputCondition, 
-        //     getFileWriteManager()
-        // );
-        // conditionalOutput.writeConditionalAssignmentString();
     }
 
     private void writeImports() {
