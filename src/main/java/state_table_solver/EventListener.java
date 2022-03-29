@@ -90,6 +90,17 @@ public class EventListener {
                 controller.exportVHDL();
             }
         });
+
+        /**
+         * Connecting the Add State toolbar button's action listener 
+         * to controller's addState method.
+         */
+        view.getToolBarButton(6).addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addState();
+            }
+        });
     }
 
 }

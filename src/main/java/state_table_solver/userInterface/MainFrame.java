@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import state_table_solver.AppData;
 import javax.swing.JOptionPane;
 import java.awt.*;
@@ -27,6 +29,10 @@ public class MainFrame extends JFrame {
     private ToolBar toolBar;
     private StateTableUI stateTableUI;
     private JPanel mainPanel;
+    private JLabel addStateLabel = new JLabel("New state id:");
+    private JTextField textField = new JTextField();
+    private Object textInput = new Object[] {addStateLabel, textField};
+    private Object[] addStateOptions = new Object[] {"Add", "Cancel"};
 
     /**
      * Class constructor. Initializes the main frame with a toolbar
@@ -146,6 +152,20 @@ public class MainFrame extends JFrame {
         this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
         this.mainPanel.repaint();
         this.mainPanel.revalidate();
+    }
+
+    public int renderNewStateChooser() {
+        int response = JOptionPane.showOptionDialog(
+            this,
+            this.textInput,
+            "Add State",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            this.addStateOptions,
+            null
+        );
+        return response;
     }
 
     /**

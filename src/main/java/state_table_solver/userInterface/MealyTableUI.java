@@ -5,7 +5,6 @@ import javax.swing.table.TableColumn;
 import state_table_solver.Controller;
 import state_table_solver.userInterface.tableModel.OutputCellEditor;
 import state_table_solver.userInterface.tableModel.OutputCellRenderer;
-import state_table_solver.userInterface.tableModel.StateTableModel;
 
 /**
  * Used to create the User Interface for a Mealy state machine project
@@ -17,12 +16,19 @@ public class MealyTableUI extends StateTableUI {
     private static final String[] COLUMN_LABELS = {"Current State", "Next state x = 0", "Next state x = 1", "Output x = 0", "Output x = 1"};
     private static final int NUM_COLS = 5;
     private static final int TABLE_WIDTH = 700;
-    private StateTableModel model = new StateTableModel(COLUMN_LABELS, NUM_COLS, getController());
 
     public MealyTableUI(Controller controller) {
         super(controller);
-        createStateTable(model, COLUMN_LABELS);
-        this.setTableWidth(TABLE_WIDTH);
+    }
+
+    @Override
+    public String[] getColumnLabels() {
+        return COLUMN_LABELS;
+    }
+
+    @Override
+    public int getTableWidth() {
+        return TABLE_WIDTH;
     }
 
     @Override

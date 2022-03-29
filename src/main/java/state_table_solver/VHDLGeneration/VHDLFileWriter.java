@@ -23,7 +23,7 @@ public class VHDLFileWriter extends VHDLWritableData {
     public VHDLFileWriter(String filePath, AppData appData) {
         super(new FileWriteManager(filePath + FILE_EXTENSION));
         this.appData = appData;
-        File f = new File(filePath + FILE_EXTENSION);
+        File f = new File(filePath);
         this.entityName = f.getName();
     }
 

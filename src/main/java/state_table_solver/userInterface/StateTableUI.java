@@ -28,9 +28,12 @@ public abstract class StateTableUI {
 
     public StateTableUI(Controller c) {
         this.controller = c;
+        this.setStateTableModel(new StateTableModel(getColumnLabels(), getNumCols(), getController()));
+        createStateTable(getModel());
+        this.setTableWidth(getTableWidth());
     }
 
-    public void createStateTable(StateTableModel defaultTable, String[] columnLabels) {
+    public void createStateTable(StateTableModel defaultTable) {
         this.jTable = new JTable(defaultTable);
         this.stateTableModel = defaultTable;
         JTableHeader th = this.jTable.getTableHeader();
@@ -54,6 +57,16 @@ public abstract class StateTableUI {
         setOutputCellEditor();
     }
 
+    public void refreshUI() {
+        createStateTable(getModel());
+        setTableWidth(getTableWidth());
+        // adjustTableHeight();
+    }
+
+    public abstract int getTableWidth();
+
+    public abstract String[] getColumnLabels();
+
     public abstract int getNumCols();
 
     public abstract void setOutputCellEditor();
@@ -63,6 +76,13 @@ public abstract class StateTableUI {
         defaultDim.width = width;
         getJTable().setPreferredSize(defaultDim);
         getJTable().setPreferredScrollableViewportSize(getJTable().getPreferredSize());
+    }
+
+    public void adjustTableHeight() {
+        Dimension currentDim = getJTable().getPreferredSize();
+        Dimension scrollViewDim = getJTable().getPreferredScrollableViewportSize();
+        System.out.println(currentDim);
+        System.out.println(scrollViewDim);
     }
 
     public Object[] getEmptyRow() {
@@ -85,7 +105,12 @@ public abstract class StateTableUI {
         return this.stateTableModel;
     }
 
+    public void setStateTableModel(StateTableModel stateTableModel) {
+        this.stateTableModel = stateTableModel;
+    }
+
     public void deleteRow(int i) {
         this.stateTableModel.deleteRow(i);
+        refreshUI();
     }
 }

@@ -161,6 +161,18 @@ public class Controller implements Serializable {
 
     public void removeRow(int rowIndex) {
         mainFrame().getStateTableUI().deleteRow(rowIndex);
+        mainFrame().renderTable();
+    }
+
+    public void addState() {
+        int response = mainFrame().renderNewStateChooser();
+        // Add button was clicked
+        if(response == 0) {
+            appData().getStateTable().addState("TEST");
+            mainFrame().getStateTableUI().getModel().fireTableDataChanged();
+            mainFrame().getStateTableUI().refreshUI();
+            mainFrame().renderTable();
+        }
     }
 
 }

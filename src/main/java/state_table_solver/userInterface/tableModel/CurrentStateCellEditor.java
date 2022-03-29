@@ -30,6 +30,10 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
     private JButton stateSelectorBtn;
     private JRootPane parentPane;
     private Controller controller;
+    private JLabel inputLabel = new JLabel("State id:");
+    private JTextField textField = new JTextField();
+    private Object textInput = new Object[] {inputLabel, textField};
+    private Object[] options = new Object[] {"Delete", "Save", "Cancel"};
 
     public CurrentStateCellEditor(Controller c) {
         JButton stateSelectorBtn = new JButton();
@@ -59,15 +63,10 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        JLabel inputLabel = new JLabel("State id:");
-        JTextField textField = new JTextField();
-        Object textInput = new Object[] {inputLabel, textField};
-        Object[] options = new Object[] {"Delete", "Save", "Cancel"};
-
         int response = JOptionPane.showOptionDialog(
             this.parentPane,
             textInput,
-            "Create a new project",
+            "Edit State",
             JOptionPane.DEFAULT_OPTION,
             JOptionPane.PLAIN_MESSAGE,
             null,
