@@ -9,11 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.table.TableColumn;
-import state_table_solver.stateTable.State;
+import javax.swing.JTable;
+import state_table_solver.AppData;
 import javax.swing.JOptionPane;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * <p> The MainFrame is the view of the application. It renders a GUI for
@@ -33,38 +32,36 @@ public class MainFrame extends JFrame {
      * Class constructor. Initializes the main frame with a toolbar
      * and state table.
      */
-    public MainFrame() {
+    public MainFrame(AppData appData) {
         super("State Table Solver");
         this.setSize(1000, 750);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         this.toolBar = new ToolBar();
-
-        
-        this.stateTableUI = new MooreTableUI();
         this.mainPanel = new JPanel();
 
-        ArrayList<State> listNextState = new ArrayList<State>();
-        listNextState.add(new State("A", "d"));
-        listNextState.add(new State("B", "d"));
-        listNextState.add(new State("C", "d"));
-        listNextState.add(new State("D", "d"));
+        // ArrayList<State> listNextState = new ArrayList<State>();
+        // listNextState.add(new State("A", "d"));
+        // listNextState.add(new State("B", "d"));
+        // listNextState.add(new State("C", "d"));
+        // listNextState.add(new State("D", "d"));
 
-        TableColumn nextStatecol0 = stateTableUI.getColumnModel().getColumn(1);
-        TableColumn nextStatecol1 = stateTableUI.getColumnModel().getColumn(2);
-        nextStatecol0.setCellEditor(new NextStateCellEditor(listNextState));
-        nextStatecol0.setCellRenderer(new NextStateCellRenderer(listNextState));
-        nextStatecol1.setCellEditor(new NextStateCellEditor(listNextState));
-        nextStatecol1.setCellRenderer(new NextStateCellRenderer(listNextState));
-
-        JScrollPane jPane = new JScrollPane(this.stateTableUI);
-        this.stateTableUI.setPreferredScrollableViewportSize(this.stateTableUI.getPreferredSize());
-
-        mainPanel.add(jPane);
+        // TableColumn currentStateCol = stateTableUI.getjTable().getColumnModel().getColumn(0);
+        // TableColumn nextStatecol0 = stateTableUI.getjTable().getColumnModel().getColumn(1);
+        // TableColumn nextStatecol1 = stateTableUI.getjTable().getColumnModel().getColumn(2);
+        // TableColumn outputCol = stateTableUI.getjTable().getColumnModel().getColumn(3);
+        // JTextField textField = new JTextField();
+        // currentStateCol.setCellEditor(new DefaultCellEditor(textField));
+        // currentStateCol.setCellRenderer(new DefaultTableCellRenderer());
+        // nextStatecol0.setCellEditor(new NextStateCellEditor(listNextState));
+        // nextStatecol0.setCellRenderer(new NextStateCellRenderer(listNextState));
+        // nextStatecol1.setCellEditor(new NextStateCellEditor(listNextState));
+        // nextStatecol1.setCellRenderer(new NextStateCellRenderer(listNextState));
+        // outputCol.setCellEditor(new DefaultCellEditor(bitsList));
+        // outputCol.setCellRenderer(new DefaultTableCellRenderer());
 
         this.getContentPane().add(this.toolBar, BorderLayout.PAGE_START);
-        this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
         
         this.setVisible(true);
     }
@@ -162,6 +159,13 @@ public class MainFrame extends JFrame {
         }
     }
 
+    public void renderTable(JTable table) {
+        JScrollPane jPane = new JScrollPane(table);
+        this.stateTableUI.getjTable().setPreferredScrollableViewportSize(this.stateTableUI.getjTable().getPreferredSize());
+        mainPanel.add(jPane);
+        this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
+    }
+
     /**
      * Returns the tool bar button at the specified index.
      * @see ToolBarButton
@@ -171,5 +175,9 @@ public class MainFrame extends JFrame {
      */
     public ToolBarButton getToolBarButton(int i) {
         return this.toolBar.getButton(i);
+    }
+
+    public void setStateTableUI(StateTableUI stateTableUI) {
+        this.stateTableUI = stateTableUI;
     }
 }

@@ -177,9 +177,9 @@ public abstract class StateTable implements Serializable {
     }
 
     /**
-     * Setter for next high output column.
+     * Setter for next low output column.
      * 
-     * @param nextHighOutputCol New next high output column.
+     * @param nextLowOutputCol New next low output column.
      */
     public void setNextLowOutputCol(List<Bit> nextLowOutputCol) {
         this.nextLowOutputCol = nextLowOutputCol;

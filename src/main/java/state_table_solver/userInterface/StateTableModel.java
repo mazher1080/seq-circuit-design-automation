@@ -1,10 +1,8 @@
 package state_table_solver.userInterface;
 
-import state_table_solver.booleanLogic.Bit;
-import state_table_solver.stateTable.State;
-
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import state_table_solver.AppData;
 
 /**
  * StateTableModel is a class used to construct a JTable based on the
@@ -18,11 +16,13 @@ public abstract class StateTableModel extends AbstractTableModel {
     private int numCols;
     private int numRows = 2;
     private final String[] COLUMN_LABELS;
+    private AppData appData;
 
-    public StateTableModel(String[] columnLabels, int numCols) {
+    public StateTableModel(String[] columnLabels, int numCols, AppData appData) {
         super();
         this.COLUMN_LABELS = columnLabels;
         this.numCols = numCols;
+        this.appData = appData;
     }
 
     @Override
@@ -51,14 +51,7 @@ public abstract class StateTableModel extends AbstractTableModel {
         return 0 <= columnIndex && columnIndex < this.numCols;
     }
 
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        if(columnIndex >= 0 && columnIndex <= 2)
-            return State.class;
-        if(columnIndex == 3) 
-            return Bit.class;
-        return null;
-    }
+    public abstract Object getValueAt(int rowIndex, int columnIndex);
 
     public abstract void setValueAt(Object aValue, int rowIndex, int columnIndex);
 
@@ -72,6 +65,14 @@ public abstract class StateTableModel extends AbstractTableModel {
     public void removeTableModelListener(TableModelListener l) {
         // TODO Auto-generated method stub
         
+    }
+
+    public AppData getAppData() {
+        return appData;
+    }
+
+    public void setAppData(AppData appData) {
+        this.appData = appData;
     }
     
 }

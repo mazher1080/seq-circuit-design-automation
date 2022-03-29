@@ -5,6 +5,9 @@ import state_table_solver.stateTable.MealyTable;
 import state_table_solver.stateTable.MooreTable;
 import state_table_solver.stateTable.StateTable;
 import state_table_solver.userInterface.MainFrame;
+import state_table_solver.userInterface.MealyTableUI;
+import state_table_solver.userInterface.MooreTableUI;
+import state_table_solver.userInterface.StateTableUI;
 
 import java.io.File;
 import java.io.Serializable;
@@ -47,7 +50,8 @@ public class Controller implements Serializable {
      */
     public void initApplication() {
         this.appData = new AppData();
-        this.mainFrame = new MainFrame();
+        this.mainFrame = new MainFrame(appData);
+        createNewProject();
     }
 
     /**
@@ -71,6 +75,16 @@ public class Controller implements Serializable {
         defaultTable.addState("Q2");
 
         appData().setStateTable(defaultTable);
+
+        StateTableUI defaultTableUI;
+        if(response == 0) {
+            // Moore button clicked
+            defaultTableUI = new MooreTableUI(appData());
+        } else {
+            // Mealy button clicked
+            defaultTableUI = new MealyTableUI(appData());
+        }
+        mainFrame().setStateTableUI(defaultTableUI);
         System.out.println(appData().getStateTable());
     }
 
