@@ -2,6 +2,13 @@ package state_table_solver.VHDLGeneration;
 
 import state_table_solver.VHDLGeneration.condition.VHDLCondition;
 
+/**
+ * <p> VHDLConditionalSignal is a class used to write conditional assignments and state transtions
+ * based on a VHDLsignal and a VHDLcondition.
+ * 
+ * @author Jacob Head
+ */
+
 public class VHDLConditionalSignal extends VHDLWritableData {
     private VHDLSignal signal;
     private VHDLCondition condition;

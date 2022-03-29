@@ -55,11 +55,11 @@ public class StateTest {
         s1.pushBit(BitValue.LOW);
         s1.setEncodingCount(3);
 
-        assertEquals(s1.bitProduct().length(), 3);
+        assertEquals(s1.getBitProduct().length(), 3);
         assertEquals(s1.getEncodingCount(), 3);
-        for(int i = 0; i < s1.bitProduct().length(); i++) {
-            Bit b = s1.bitProduct().get(i);
-            String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
+        for(int i = 0; i < s1.getBitProduct().length(); i++) {
+            Bit b = s1.getBitProduct().get(i);
+            String expectedId = 'd' + Integer.toString(s1.getBitProduct().length() - 1 - i);
             BitValue expectedBitVal = expectedBitVals[i];
             assertEquals(b.getId(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);
@@ -67,11 +67,11 @@ public class StateTest {
 
         s1.setEncodingCount(2);
 
-        assertEquals(s1.bitProduct().length(), 2);
+        assertEquals(s1.getBitProduct().length(), 2);
         assertEquals(s1.getEncodingCount(), 2);
-        for(int i = 0; i < s1.bitProduct().length(); i++) {
-            Bit b = s1.bitProduct().get(i);
-            String expectedId = 'd' + Integer.toString(s1.bitProduct().length() - 1 - i);
+        for(int i = 0; i < s1.getBitProduct().length(); i++) {
+            Bit b = s1.getBitProduct().get(i);
+            String expectedId = 'd' + Integer.toString(s1.getBitProduct().length() - 1 - i);
             BitValue expectedBitVal = expectedBitVals[i + 1];
             assertEquals(b.getId(), expectedId);
             assertEquals(b.getValue(), expectedBitVal);

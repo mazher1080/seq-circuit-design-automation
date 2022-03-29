@@ -1,8 +1,8 @@
 package state_table_solver.VHDLGeneration.condition;
 
 /**
- * <p>A binary condition is a condition which computes writes a VHDL string
- * given to condtions.
+ * <p> BinaryCondition is a VHDLCondition which is computed based on two
+ * other VHDLCondititions.
  * 
  * @author Jacob Head
  * 

@@ -1,5 +1,12 @@
 package state_table_solver.VHDLGeneration;
 
+/**
+ * <p> VHDLWritableData is a decorator class used to provide writable functionality to
+ * a class using a FileWriteManager.
+ * 
+ * @author Jacob Head
+ */
+
 public abstract class VHDLWritableData {
     private FileWriteManager fileWriteManager;
 

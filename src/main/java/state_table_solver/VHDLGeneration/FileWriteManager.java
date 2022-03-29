@@ -4,6 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/**
+ * <p> FileWriteManager is a class used to handle file writing from multiple
+ * objects at once.
+ * 
+ * @author Jacob Head
+ */
+
 public class FileWriteManager {
     private String currentIndentation = "";
     private File file;

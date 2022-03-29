@@ -7,6 +7,13 @@ import state_table_solver.stateTable.StateTable;
 import state_table_solver.VHDLGeneration.condition.*;
 import state_table_solver.booleanLogic.BitValue;
 
+/**
+ * <p> VHDLFileWriter is used to write a vhdl file from the data associated with
+ * a state table.
+ * 
+ * @author Jacob Head
+ */
+
 public class VHDLFileWriter extends VHDLWritableData {
     private static final String FILE_EXTENSION = ".vhd";
     private String entityName;
@@ -172,7 +179,7 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeLine("process(clk)");
         writeLine("begin");
         indent();
-        writeStateTransition();
+        writeClockTransition();
         n();
         writeNextStateGeneration();
         n();
@@ -180,7 +187,7 @@ public class VHDLFileWriter extends VHDLWritableData {
         unIndent();
     }
 
-    private void writeStateTransition() {
+    private void writeClockTransition() {
         writeLine("if (clk'event and clk = '" + this.clockEdge + "') then");
         indent();
         writeLine("current_state <= next_state;");
