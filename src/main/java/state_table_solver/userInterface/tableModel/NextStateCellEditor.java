@@ -1,8 +1,10 @@
-package state_table_solver.userInterface;
+package state_table_solver.userInterface.tableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.EventObject;
+import java.util.List;
+
 import javax.swing.AbstractCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -15,9 +17,9 @@ import state_table_solver.stateTable.State;
  */
 public class NextStateCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
     private State nextState;
-    private ArrayList<State> listNextState;
+    private List<State> listNextState;
 
-    public NextStateCellEditor(ArrayList<State> listNextState) {
+    public NextStateCellEditor(List<State> listNextState) {
         this.listNextState = listNextState;
     }
 
@@ -36,7 +38,7 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
         for (State aState : listNextState) {
             comboNextState.addItem(aState);
         }
-        comboNextState.setSelectedItem(nextState);
+        comboNextState.setSelectedItem(this.nextState);
         comboNextState.addActionListener(this);
 
         if (isSelected) {
@@ -51,6 +53,6 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
     public void actionPerformed(ActionEvent event) {
         JComboBox<State> comboNextState = (JComboBox<State>) event.getSource();
         this.nextState = (State) comboNextState.getSelectedItem();
-        
+        stopCellEditing();
     }
 }

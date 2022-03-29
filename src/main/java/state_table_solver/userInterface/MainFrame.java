@@ -41,28 +41,7 @@ public class MainFrame extends JFrame {
         this.toolBar = new ToolBar();
         this.mainPanel = new JPanel();
 
-        // ArrayList<State> listNextState = new ArrayList<State>();
-        // listNextState.add(new State("A", "d"));
-        // listNextState.add(new State("B", "d"));
-        // listNextState.add(new State("C", "d"));
-        // listNextState.add(new State("D", "d"));
-
-        // TableColumn currentStateCol = stateTableUI.getjTable().getColumnModel().getColumn(0);
-        // TableColumn nextStatecol0 = stateTableUI.getjTable().getColumnModel().getColumn(1);
-        // TableColumn nextStatecol1 = stateTableUI.getjTable().getColumnModel().getColumn(2);
-        // TableColumn outputCol = stateTableUI.getjTable().getColumnModel().getColumn(3);
-        // JTextField textField = new JTextField();
-        // currentStateCol.setCellEditor(new DefaultCellEditor(textField));
-        // currentStateCol.setCellRenderer(new DefaultTableCellRenderer());
-        // nextStatecol0.setCellEditor(new NextStateCellEditor(listNextState));
-        // nextStatecol0.setCellRenderer(new NextStateCellRenderer(listNextState));
-        // nextStatecol1.setCellEditor(new NextStateCellEditor(listNextState));
-        // nextStatecol1.setCellRenderer(new NextStateCellRenderer(listNextState));
-        // outputCol.setCellEditor(new DefaultCellEditor(bitsList));
-        // outputCol.setCellRenderer(new DefaultTableCellRenderer());
-
         this.getContentPane().add(this.toolBar, BorderLayout.PAGE_START);
-        
         this.setVisible(true);
     }
 
@@ -159,11 +138,14 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void renderTable(JTable table) {
-        JScrollPane jPane = new JScrollPane(table);
-        this.stateTableUI.getjTable().setPreferredScrollableViewportSize(this.stateTableUI.getjTable().getPreferredSize());
+    public void renderTable() {
+        JTable stateTable = getStateTableUI().getJTable();
+        JScrollPane jPane = new JScrollPane(stateTable);
+        mainPanel.removeAll();
         mainPanel.add(jPane);
         this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
+        this.mainPanel.repaint();
+        this.mainPanel.revalidate();
     }
 
     /**
@@ -175,6 +157,10 @@ public class MainFrame extends JFrame {
      */
     public ToolBarButton getToolBarButton(int i) {
         return this.toolBar.getButton(i);
+    }
+
+    public StateTableUI getStateTableUI() {
+        return stateTableUI;
     }
 
     public void setStateTableUI(StateTableUI stateTableUI) {

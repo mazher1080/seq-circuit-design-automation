@@ -79,12 +79,13 @@ public class Controller implements Serializable {
         StateTableUI defaultTableUI;
         if(response == 0) {
             // Moore button clicked
-            defaultTableUI = new MooreTableUI(appData());
+            defaultTableUI = new MooreTableUI(this);
         } else {
             // Mealy button clicked
-            defaultTableUI = new MealyTableUI(appData());
+            defaultTableUI = new MealyTableUI(this);
         }
         mainFrame().setStateTableUI(defaultTableUI);
+        mainFrame().renderTable();
         System.out.println(appData().getStateTable());
     }
 
@@ -154,8 +155,12 @@ public class Controller implements Serializable {
             return;
         // TODO alert error here
         
-        VHDLFileWriter fWriter = new VHDLFileWriter(filePath, appData);
+        VHDLFileWriter fWriter = new VHDLFileWriter(filePath, appData());
         fWriter.writeFile();
+    }
+
+    public void removeRow(int rowIndex) {
+        mainFrame().getStateTableUI().deleteRow(rowIndex);
     }
 
 }

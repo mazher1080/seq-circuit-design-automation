@@ -1,15 +1,18 @@
 package state_table_solver.userInterface;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.*;
 
-import state_table_solver.AppData;
+import state_table_solver.Controller;
 import state_table_solver.stateTable.State;
+import state_table_solver.userInterface.tableModel.CurrentStateCellEditor;
+import state_table_solver.userInterface.tableModel.CurrentStateCellRenderer;
+import state_table_solver.userInterface.tableModel.NextStateCellEditor;
+import state_table_solver.userInterface.tableModel.NextStateCellRenderer;
+import state_table_solver.userInterface.tableModel.StateTableModel;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UI structure for a state table. Houses the JTable containing the necessary app data. To be constructed with a StateTableModel.
@@ -20,33 +23,34 @@ import java.util.ArrayList;
 
 public abstract class StateTableUI {
     private JTable jTable;
-    private AppData appData;
+    private Controller controller;
+    private StateTableModel stateTableModel;
 
-    public StateTableUI(AppData appData) {
-        this.appData = appData;
+    public StateTableUI(Controller c) {
+        this.controller = c;
     }
 
-    public void renderStateTable(TableModel defaultTable, String[] columnLabels, int numCols) {
-        jTable = new JTable(defaultTable);
+    public void createStateTable(StateTableModel defaultTable, String[] columnLabels) {
+        this.jTable = new JTable(defaultTable);
+        this.stateTableModel = defaultTable;
         JTableHeader th = this.jTable.getTableHeader();
         th.setReorderingAllowed(false); // Disable column moving
         th.setResizingAllowed(false); // Disable column resizing
-        jTable.setSelectionForeground(Color.WHITE);
-        TableColumn currentStateCol = getjTable().getColumnModel().getColumn(0);
-        TableColumn nextStatecol0 = getjTable().getColumnModel().getColumn(1);
-        TableColumn nextStatecol1 = getjTable().getColumnModel().getColumn(2);
-        ArrayList<State> listNextState = new ArrayList<State>();
-        listNextState.add(new State("A", "d"));
-        listNextState.add(new State("B", "d"));
-        listNextState.add(new State("C", "d"));
-        listNextState.add(new State("D", "d"));
-        nextStatecol0.setCellEditor(new NextStateCellEditor(listNextState));
-        nextStatecol0.setCellRenderer(new NextStateCellRenderer(listNextState));
-        nextStatecol1.setCellEditor(new NextStateCellEditor(listNextState));
-        nextStatecol1.setCellRenderer(new NextStateCellRenderer(listNextState));
-        JTextField textField = new JTextField();
-        currentStateCol.setCellEditor(new DefaultCellEditor(textField));
-        currentStateCol.setCellRenderer(new DefaultTableCellRenderer());
+        getJTable().setSelectionForeground(Color.WHITE);
+
+        TableColumn currentStateCol = getJTable().getColumnModel().getColumn(0);
+        TableColumn nextStatecol0 = getJTable().getColumnModel().getColumn(1);
+        TableColumn nextStatecol1 = getJTable().getColumnModel().getColumn(2);
+
+        List<State> stateList = getController().appData().getStateTable().getCurrentStateCol();
+
+        nextStatecol0.setCellEditor(new NextStateCellEditor(stateList));
+        nextStatecol0.setCellRenderer(new NextStateCellRenderer());
+        nextStatecol1.setCellEditor(new NextStateCellEditor(stateList));
+        nextStatecol1.setCellRenderer(new NextStateCellRenderer());
+        currentStateCol.setCellEditor(new CurrentStateCellEditor(getController()));
+        currentStateCol.setCellRenderer(new CurrentStateCellRenderer());
+
         setOutputCellEditor();
     }
 
@@ -55,28 +59,33 @@ public abstract class StateTableUI {
     public abstract void setOutputCellEditor();
     
     public void setTableWidth(int width) {
-        Dimension defaultDim = this.jTable.getPreferredSize();
+        Dimension defaultDim = getJTable().getPreferredSize();
         defaultDim.width = width;
-        this.jTable.setPreferredSize(defaultDim);
+        getJTable().setPreferredSize(defaultDim);
+        getJTable().setPreferredScrollableViewportSize(getJTable().getPreferredSize());
     }
 
     public Object[] getEmptyRow() {
         return new Object[getNumCols()];
     }
 
-    public AppData getAppData() {
-        return appData;
+    public Controller getController() {
+        return this.controller;
     }
 
-    public JTable getjTable() {
+    public JTable getJTable() {
         return jTable;
     }
 
-    public void setAppData(AppData appData) {
-        this.appData = appData;
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
-    public void addRow() {
-        return;
+    public StateTableModel getModel() {
+        return this.stateTableModel;
+    }
+
+    public void deleteRow(int i) {
+        this.stateTableModel.deleteRow(i);
     }
 }

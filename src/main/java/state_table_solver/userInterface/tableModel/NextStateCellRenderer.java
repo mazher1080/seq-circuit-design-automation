@@ -1,22 +1,22 @@
-package state_table_solver.userInterface;
+package state_table_solver.userInterface.tableModel;
 import java.awt.Component;
-import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;
 import state_table_solver.stateTable.State;
 /**
- * Renders a JComboBox to each cell under next state columns. Displays all user-specified states.
+ * <p>Renders a JComboBox to each cell under next state columns. Displays all user-specified states.
+ * 
  * @author Muneeb Azher
+ * @author Jacob Head
  */
-public class NextStateCellRenderer extends JComboBox<State> implements TableCellRenderer {
-
-    public NextStateCellRenderer(ArrayList<State> nextStateList) {
-        super(nextStateList.toArray(new State[nextStateList.size()]));
-    }
-
+public class NextStateCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof State) {
+                State state = (State) value;
+                setText(state.getId());
+            }
+
             if (isSelected) {
                 setBackground(table.getSelectionBackground());
             } else {

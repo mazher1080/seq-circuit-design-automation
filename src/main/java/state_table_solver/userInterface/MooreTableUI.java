@@ -1,11 +1,11 @@
 package state_table_solver.userInterface;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import state_table_solver.AppData;
+import state_table_solver.Controller;
+import state_table_solver.userInterface.tableModel.OutputCellEditor;
+import state_table_solver.userInterface.tableModel.OutputCellRenderer;
+import state_table_solver.userInterface.tableModel.StateTableModel;
 
 /**
  * Used to create the User Interface for a Moore state machine project
@@ -17,11 +17,11 @@ public class MooreTableUI extends StateTableUI {
     private static final String[] COLUMN_LABELS = {"Current State", "Next State x = 0", "Next State x = 1", "Output"};
     private static final int NUM_COLS = 4;
     private static final int TABLE_WIDTH = 500;
-    private MooreTableModel model = new MooreTableModel(COLUMN_LABELS, NUM_COLS, getAppData());
+    private StateTableModel model = new StateTableModel(COLUMN_LABELS, NUM_COLS, getController());
 
-    public MooreTableUI(AppData appData) {
-        super(appData);
-        renderStateTable(model, COLUMN_LABELS, NUM_COLS);
+    public MooreTableUI(Controller controller) {
+        super(controller);
+        createStateTable(model, COLUMN_LABELS);
         this.setTableWidth(TABLE_WIDTH);
     }
 
@@ -31,15 +31,10 @@ public class MooreTableUI extends StateTableUI {
         
     }
 
-    public MooreTableModel getModel() {
-        return model;
-    }
-
     @Override
     public void setOutputCellEditor() {
-        JTextField textField = new JTextField();
-        TableColumn outputCol = getjTable().getColumnModel().getColumn(3);
-        outputCol.setCellEditor(new DefaultCellEditor(textField));
-        outputCol.setCellRenderer(new DefaultTableCellRenderer());
+        TableColumn outputCol = getJTable().getColumnModel().getColumn(3);
+        outputCol.setCellEditor(new OutputCellEditor());
+        outputCol.setCellRenderer(new OutputCellRenderer());
     }
 }

@@ -1,11 +1,11 @@
 package state_table_solver.userInterface;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import state_table_solver.AppData;
+import state_table_solver.Controller;
+import state_table_solver.userInterface.tableModel.OutputCellEditor;
+import state_table_solver.userInterface.tableModel.OutputCellRenderer;
+import state_table_solver.userInterface.tableModel.StateTableModel;
 
 /**
  * Used to create the User Interface for a Mealy state machine project
@@ -17,11 +17,11 @@ public class MealyTableUI extends StateTableUI {
     private static final String[] COLUMN_LABELS = {"Current State", "Next state x = 0", "Next state x = 1", "Output x = 0", "Output x = 1"};
     private static final int NUM_COLS = 5;
     private static final int TABLE_WIDTH = 700;
-    private MealyTableModel model = new MealyTableModel(COLUMN_LABELS, NUM_COLS, getAppData());
+    private StateTableModel model = new StateTableModel(COLUMN_LABELS, NUM_COLS, getController());
 
-    public MealyTableUI(AppData appData) {
-        super(appData);
-        renderStateTable(model, COLUMN_LABELS, NUM_COLS);
+    public MealyTableUI(Controller controller) {
+        super(controller);
+        createStateTable(model, COLUMN_LABELS);
         this.setTableWidth(TABLE_WIDTH);
     }
 
@@ -32,13 +32,12 @@ public class MealyTableUI extends StateTableUI {
 
     @Override
     public void setOutputCellEditor() {
-        JTextField textField = new JTextField();
-        TableColumn outputCol1 = getjTable().getColumnModel().getColumn(2);
-        TableColumn outputCol2 = getjTable().getColumnModel().getColumn(4);
-        outputCol1.setCellEditor(new DefaultCellEditor(textField));
-        outputCol1.setCellRenderer(new DefaultTableCellRenderer());
-        outputCol2.setCellEditor(new DefaultCellEditor(textField));
-        outputCol2.setCellRenderer(new DefaultTableCellRenderer());
+        TableColumn outputCol1 = getJTable().getColumnModel().getColumn(3);
+        TableColumn outputCol2 = getJTable().getColumnModel().getColumn(4);
+        outputCol1.setCellEditor(new OutputCellEditor());
+        outputCol1.setCellRenderer(new OutputCellRenderer());
+        outputCol2.setCellEditor(new OutputCellEditor());
+        outputCol2.setCellRenderer(new OutputCellRenderer());
     }
     
 }
