@@ -40,6 +40,8 @@ public class MainFrame extends JFrame {
         this.setLocationRelativeTo(null);
 
         this.toolBar = new ToolBar();
+
+        
         this.stateTableUI = new MooreTableUI();
         this.mainPanel = new JPanel();
 

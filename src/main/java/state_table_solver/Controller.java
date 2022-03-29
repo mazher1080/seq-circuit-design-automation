@@ -1,10 +1,12 @@
 package state_table_solver;
 
+import state_table_solver.VHDLGeneration.VHDLFileWriter;
 import state_table_solver.stateTable.MealyTable;
 import state_table_solver.stateTable.MooreTable;
 import state_table_solver.stateTable.StateTable;
 import state_table_solver.userInterface.MainFrame;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +93,7 @@ public class Controller implements Serializable {
             boolEqnStrings.add(boolEqn);
         }
         String minOutputSoPString = stateTable.getMinOutputSoP().toString();
-        String outputBoolEqn = "y = " + minOutputSoPString;
+        String outputBoolEqn = stateTable.HIGH_OUTPUT.getId() + " = " + minOutputSoPString;
         boolEqnStrings.add(outputBoolEqn);
 
         mainFrame().renderDerivedSoP(boolEqnStrings);
@@ -129,6 +131,17 @@ public class Controller implements Serializable {
         } else {
             appData().save();
         }
+    }
+
+    public void exportVHDL() {
+        String filePath = mainFrame().renderFileSaver();
+
+        if(filePath == null || appData == null || appData.getStateTable() == null) 
+            return;
+        // TODO alert error here
+        
+        VHDLFileWriter fWriter = new VHDLFileWriter(filePath, appData);
+        fWriter.writeFile();
     }
 
 }

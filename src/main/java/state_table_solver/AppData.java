@@ -32,9 +32,24 @@ public class AppData {
         return this.stateTable;
     }
 
-
+    
+    /** 
+     * Setter for state table.
+    * 
+    * @param stateTable The new state table.
+    */
     public void setStateTable(StateTable stateTable) {
         this.stateTable = stateTable;
+    }
+
+    /**
+     * Gets the file name from the filepath.
+     * 
+     * @return The file name
+     */
+    public String getFileName() {
+        File f = new File(this.filePath);
+        return f.getName();
     }
 
     /**
@@ -43,11 +58,7 @@ public class AppData {
      * @return The filePath.
      */
     public String getFilePath() {
-        return filePath;    /**
-     * Setter for state table.
-     * 
-     * @param stateTable The new state table.
-     */
+        return filePath;
     }
 
     /**

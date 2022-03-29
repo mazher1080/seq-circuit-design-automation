@@ -27,6 +27,8 @@ public class BitConst extends Bit {
         return; // Do not allow overriding of a constants id.
     }
 
+    
+
     /** */
     @Override
     public void setValue(BitValue v) {
