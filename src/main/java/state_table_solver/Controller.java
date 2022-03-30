@@ -9,7 +9,6 @@ import state_table_solver.userInterface.MealyTableUI;
 import state_table_solver.userInterface.MooreTableUI;
 import state_table_solver.userInterface.StateTableUI;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +60,6 @@ public class Controller implements Serializable {
     public void createNewProject() {
         int response = mainFrame().renderTableSelection();
 
-        if (response != 0 && response != 1) return;
-
         StateTable defaultTable;
         if(response == 0) {
             // Moore button clicked
@@ -97,9 +94,12 @@ public class Controller implements Serializable {
         List<String> boolEqnStrings = new ArrayList<String>();
         StateTable stateTable = appData().getStateTable();
 
-        // TODO throw an error or alert here
-        if(stateTable == null)
+        if(stateTable == null) {
+            this.mainFrame().renderErrorAlert(
+                "State table is null."
+            );
             return;
+        }
 
         for(int i = 0; i < stateTable.getStateCount(); i++) {
             String stateId = stateTable.getCurrentStateCol().get(i).getId();
@@ -120,9 +120,18 @@ public class Controller implements Serializable {
     public void openProjectFile() {
         String filePath = mainFrame().renderFileChooser();
         
-        if(filePath == null) return;
-        appData().open(filePath);
-        // TODO catch errors if wrong file type is specified
+        if(filePath == null) {
+            mainFrame().renderErrorAlert(
+                "Cannot open file. Filepath is not specified."
+            );
+            return;
+        }
+
+        try {
+            appData().open(filePath);
+        } catch (Exception e) {
+            mainFrame().renderErrorAlert("Cannot open selected file.");
+        }
     }
 
     /**
@@ -151,9 +160,15 @@ public class Controller implements Serializable {
     public void exportVHDL() {
         String filePath = mainFrame().renderFileSaver();
 
-        if(filePath == null || appData == null || appData.getStateTable() == null) 
+        if(filePath == null) {
+            mainFrame().renderErrorAlert("Cannot export VHDL to unspecified file path.");
             return;
-        // TODO alert error here
+        }
+
+        if(appData == null || appData.getStateTable() == null) {
+            mainFrame().renderErrorAlert("Cannot export VHDL. State table data is invalid.");
+            return;
+        }
         
         VHDLFileWriter fWriter = new VHDLFileWriter(filePath, appData());
         fWriter.writeFile();
@@ -168,7 +183,15 @@ public class Controller implements Serializable {
         int response = mainFrame().renderNewStateChooser();
         // Add button was clicked
         if(response == 0) {
-            appData().getStateTable().addState("TEST");
+            String stateId = mainFrame().getNewStateResult();
+            System.out.println("'" + stateId + "'");
+            if(stateId == null || stateId.isBlank()) {
+                mainFrame().renderErrorAlert(
+                    "Cannot add state. State id not specified."
+                );
+                return;
+            }
+            appData().getStateTable().addState(stateId);
             mainFrame().getStateTableUI().getModel().fireTableDataChanged();
             mainFrame().getStateTableUI().refreshUI();
             mainFrame().renderTable();

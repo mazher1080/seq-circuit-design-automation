@@ -8,8 +8,6 @@ import state_table_solver.booleanLogic.BitValue;
 import state_table_solver.booleanLogic.BitVar;
 import state_table_solver.booleanLogic.SumOfProducts;
 
-import static org.junit.Assert.*;
-
 public class LogicMinimizerTest {
     @Test
     public void minimizeTest() {

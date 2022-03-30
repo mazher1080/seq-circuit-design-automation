@@ -5,7 +5,6 @@ import state_table_solver.Utilities;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.Serializable;
 
 /**

@@ -10,7 +10,6 @@ public class App
 {
 
     private Controller controller;
-    private EventListener eventListener;
 
     /**
      * Class constructor creates a new application.
@@ -18,7 +17,7 @@ public class App
     public App() {
         this.controller = new Controller();
         this.controller.initApplication();
-        this.eventListener = new EventListener(this.controller);
+        new EventListener(this.controller);
     }
     
 }

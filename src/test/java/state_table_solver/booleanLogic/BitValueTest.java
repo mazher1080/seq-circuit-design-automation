@@ -46,13 +46,13 @@ public class BitValueTest {
         boolean failedB1 = false;
         boolean failedB2 = false;
         try {
-            Bit b1 = new BitVar("'", BitValue.HIGH);
+            new BitVar("'", BitValue.HIGH);
         } catch (AssertionError e) {
             failedB1 = true;
         }
 
         try {
-            Bit b2 = new BitVar("0", BitValue.HIGH);
+            new BitVar("0", BitValue.HIGH);
         } catch (AssertionError e) {
             failedB2 = true;
         }

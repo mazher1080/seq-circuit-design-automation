@@ -2,7 +2,6 @@ package state_table_solver.userInterface.tableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JComboBox;
@@ -12,12 +11,13 @@ import javax.swing.table.TableCellEditor;
 import state_table_solver.booleanLogic.Bit;
 import state_table_solver.booleanLogic.BitConst;
 import state_table_solver.booleanLogic.BitValue;
-import state_table_solver.stateTable.State;
+
 /**
  * <p>Output cell editor for each cell in an output column in a
  * state table.
  * @author Jacob Head
  */
+
 public class OutputCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
     private Bit nextOutput;
     private JComboBox<Bit> comboBox;

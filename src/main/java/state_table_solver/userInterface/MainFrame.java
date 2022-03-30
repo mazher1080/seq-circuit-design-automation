@@ -155,6 +155,7 @@ public class MainFrame extends JFrame {
     }
 
     public int renderNewStateChooser() {
+        this.textField.setText("");
         int response = JOptionPane.showOptionDialog(
             this,
             this.textInput,
@@ -166,6 +167,16 @@ public class MainFrame extends JFrame {
             null
         );
         return response;
+    }
+
+    public void renderInfoAlert(String str){
+        JOptionPane.showMessageDialog(this, str,
+        "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void renderErrorAlert(String errorMessage){
+        JOptionPane.showMessageDialog(this, "ERROR: " + errorMessage,
+        "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -181,6 +192,10 @@ public class MainFrame extends JFrame {
 
     public StateTableUI getStateTableUI() {
         return stateTableUI;
+    }
+
+    public String getNewStateResult() {
+        return textField.getText();
     }
 
     public void setStateTableUI(StateTableUI stateTableUI) {

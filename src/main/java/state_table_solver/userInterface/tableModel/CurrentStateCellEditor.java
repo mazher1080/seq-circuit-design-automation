@@ -2,14 +2,11 @@ package state_table_solver.userInterface.tableModel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -77,7 +74,9 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         switch(response) {
             case 0:
                 if(this.controller.appData().getStateTable().getStateCount() < 3) {
-                    //TODO alert here
+                    this.controller.mainFrame().renderInfoAlert(
+                        "Cannot have less than two states."
+                    );
                     return;
                 }
                 controller.removeRow(getStateIndex());
