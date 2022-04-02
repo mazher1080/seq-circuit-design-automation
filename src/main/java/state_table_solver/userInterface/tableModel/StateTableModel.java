@@ -25,6 +25,11 @@ public class StateTableModel extends AbstractTableModel {
         this.controller = controller;
     }
 
+    /** Returns true if a cell at <code>rowIndex</code> and <code>columnIndex</code> is editable. False otherwise.
+     * @param rowIndex
+     * @param columnIndex
+     * @return boolean
+     */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return (
@@ -33,6 +38,11 @@ public class StateTableModel extends AbstractTableModel {
         );
     }
 
+    /** Obtain the object value specified in a cell
+     * @param rowIndex
+     * @param columnIndex
+     * @return Object
+     */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         State s = null;
@@ -57,6 +67,11 @@ public class StateTableModel extends AbstractTableModel {
         }
     }
 
+    /** Set the object value specified in a cell
+     * @param aValue
+     * @param rowIndex
+     * @param columnIndex
+     */
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if(columnIndex >= 0 && columnIndex <= 2) {
@@ -78,36 +93,59 @@ public class StateTableModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
+    /** Deletes a row from the state table
+     * @param index
+     */
     public void deleteRow(int index) {
         getController().appData().getStateTable().removeRow(index);
         fireTableRowsDeleted(index, index);
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int getRowCount() {
         return getController().appData().getStateTable().getStateCount();
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int getColumnCount() {
         return this.numCols;
     }
 
+    /** 
+     * @param columnIndex
+     * @return String
+     */
     @Override
     public String getColumnName(int columnIndex) {
         assert (columnIndex >= 0 && columnIndex < COLUMN_LABELS.length);
         return COLUMN_LABELS[columnIndex];
     }
 
+    /** 
+     * @param columnIndex
+     * @return Class<?>
+     */
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return getValueAt(0, columnIndex).getClass();
     }
 
+    /** Obtain the controller value passed into the model
+     * @return Controller
+     */
     public Controller getController() {
         return controller;
     }
 
+    /** Set the controller value corresponding to the model
+     * @param controller
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
