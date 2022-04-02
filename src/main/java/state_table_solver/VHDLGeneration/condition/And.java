@@ -8,7 +8,16 @@ package state_table_solver.VHDLGeneration.condition;
  */
 
 public class And extends BinaryCondition {
+
+    /**
+     * Class constructor. Performs the and operation between two condtions.
+     * @see BinaryCondition
+     * 
+     * @param left the left vhdl condition.
+     * @param right the right vhdl condtion.
+     */
     public And(VHDLCondition left, VHDLCondition right) {
         super(left, right, "and");
     }
+    
 }

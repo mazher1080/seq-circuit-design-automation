@@ -29,7 +29,11 @@ public class BitConst extends Bit {
 
     
 
-    /** */
+    /** 
+     * Sets the value of this bit.
+     * Since this is a constant value and id,
+     * should always be equal.
+    */
     @Override
     public void setValue(BitValue v) {
         super.setValue(v);

@@ -14,13 +14,15 @@ import state_table_solver.booleanLogic.Bit;
 public class OutputCellRenderer extends DefaultTableCellRenderer {
     
     /** 
-     * @param table
-     * @param value
-     * @param isSelected
-     * @param hasFocus
-     * @param row
-     * @param column
-     * @return Component
+     * Gets the component to render for the output cell.
+     * 
+     * @param table The current table.
+     * @param value The value of the cell.
+     * @param isSelected If the cell is selected.
+     * @param hasFocus If the cell has focus.
+     * @param row The cells row index.
+     * @param column The cells column index.
+     * @return The component to be rendered in the cell.
      */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

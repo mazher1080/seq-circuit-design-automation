@@ -10,6 +10,12 @@ public class ReservedBitIds {
     public static final String[] CHARS = {"+",".","'"};
     public static final String[] STRINGS = {"-","1","0"};
     
+    /**
+     * Static function which validates a given id as a valid bit id.
+     * 
+     * @param id Id to validate.
+     * @return True if valid, false otherwise.
+     */
     public static boolean validateId(String id) {
         for(String str : ReservedBitIds.STRINGS) {
             if(id == str) 

@@ -32,7 +32,6 @@ public class MooreTable extends StateTable {
 
     /**
      * Returns the table name.
-     * @see StateTable
      * 
      * @return The table name.
      */

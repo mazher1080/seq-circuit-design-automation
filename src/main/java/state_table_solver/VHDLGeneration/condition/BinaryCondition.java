@@ -9,6 +9,7 @@ package state_table_solver.VHDLGeneration.condition;
  */
 
 public abstract class BinaryCondition implements VHDLCondition {
+    
     public VHDLCondition leftCondition;
     public VHDLCondition rightCondition;
     private String operationSymbol;
@@ -40,4 +41,5 @@ public abstract class BinaryCondition implements VHDLCondition {
             this.rightCondition.toString() + ")"
         );
     }
+
 }

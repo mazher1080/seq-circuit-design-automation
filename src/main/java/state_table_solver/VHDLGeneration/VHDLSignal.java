@@ -10,6 +10,19 @@ import state_table_solver.VHDLGeneration.condition.VHDLCondition;
  */
 
 public interface VHDLSignal extends VHDLCondition {
+
+    /**
+     * Gets the id for the given vhdl signal.
+     * 
+     * @return The signal id.
+     */
     public String getId();
+
+    /**
+     * Sets the id for a given vhdl signal.
+     * 
+     * @param s The new signal id.
+     */
     public void setId(String s);
+
 }
