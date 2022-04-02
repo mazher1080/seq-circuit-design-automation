@@ -26,6 +26,5 @@ public class LogicMinimizerTest {
         BitProduct b6 = new BitProduct(a, b, c);
 
         SumOfProducts sop = new SumOfProducts(b1, b2, b3, b4, b5, b6);
-        System.out.println(sop);
     }
 }

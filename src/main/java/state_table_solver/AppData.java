@@ -78,7 +78,6 @@ public class AppData {
     public void open(String filePath) {
         setFilePath(filePath);
         load();
-        System.out.println(getStateTable());
     }
 
     /**

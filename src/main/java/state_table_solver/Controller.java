@@ -50,18 +50,18 @@ public class Controller implements Serializable {
     public void initApplication() {
         this.appData = new AppData();
         this.mainFrame = new MainFrame(appData);
-        createNewProject();
+        createNewProject(true);
     }
 
     /**
      * Creates a new project for the application. Renders a pop up where users can
      * specify a moore project or a mealy project.
      */
-    public void createNewProject() {
+    public void createNewProject(boolean isFirstProject) {
         int response = mainFrame().renderTableSelection();
         
         // Selection window closed
-        if(response == -1) return;
+        if(response == -1 && !isFirstProject) return;
 
         StateTable defaultTable;
         if(response == 0) {
@@ -86,7 +86,6 @@ public class Controller implements Serializable {
         }
         mainFrame().setStateTableUI(defaultTableUI);
         loadUserInterface();
-        System.out.println(appData().getStateTable());
     }
 
     /**
@@ -195,7 +194,6 @@ public class Controller implements Serializable {
         // Add button was clicked
         if(response == 0) {
             String stateId = mainFrame().getNewStateResult();
-            System.out.println("'" + stateId + "'");
             if(stateId == null || stateId.isBlank()) {
                 mainFrame().renderErrorAlert(
                     "Cannot add state. State id not specified."

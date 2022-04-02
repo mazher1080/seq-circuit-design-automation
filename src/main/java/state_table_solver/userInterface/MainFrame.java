@@ -145,7 +145,6 @@ public class MainFrame extends JFrame {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String filePath = fc.getSelectedFile().getAbsolutePath();
-            System.out.println(filePath);
             return filePath;
         } else {
             return null;
@@ -164,7 +163,6 @@ public class MainFrame extends JFrame {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             String filePath = fc.getSelectedFile().getAbsolutePath();
-            System.out.println(filePath);
             return filePath;
         } else {
             return null;

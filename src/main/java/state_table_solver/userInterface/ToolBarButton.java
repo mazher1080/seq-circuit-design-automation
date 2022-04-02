@@ -29,9 +29,7 @@ public class ToolBarButton extends JButton {
         this.setMaximumSize(DEFAULT_DIMENSION);
         this.setMinimumSize(DEFAULT_DIMENSION);
 
-        System.out.println("HERE");
         Image iconImg = imgLoader.loadImage();
-        System.out.println("HERE2");
         if(iconImg != null) {
             ImageIcon icon = new ImageIcon(iconImg);
             this.setIcon(icon);

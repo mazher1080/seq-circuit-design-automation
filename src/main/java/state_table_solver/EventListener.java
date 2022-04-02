@@ -32,7 +32,7 @@ public class EventListener {
         view.getToolBarButton(0).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.createNewProject();
+                controller.createNewProject(false);
             }
         });
 

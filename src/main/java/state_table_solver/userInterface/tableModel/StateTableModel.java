@@ -75,7 +75,6 @@ public class StateTableModel extends AbstractTableModel {
             Bit b = (Bit) aValue;
             this.getController().appData().getStateTable().getNextHighOutputCol().set(rowIndex, b);
         }
-        System.out.println(this.getController().appData().getStateTable());
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 

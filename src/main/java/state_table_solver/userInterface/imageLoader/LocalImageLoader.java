@@ -16,8 +16,8 @@ public class LocalImageLoader implements ImageLoader {
         try {
             Image img = ImageIO.read(getClass().getResource(localPath));
             return img;
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
