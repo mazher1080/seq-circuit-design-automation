@@ -18,6 +18,7 @@ import state_table_solver.booleanLogic.BitValue;
  */
 
 public class OutputCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+    
     private Bit nextOutput;
     private JComboBox<Bit> comboBox;
     private static final Bit[] outputList = new Bit[] {
@@ -26,6 +27,10 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
         new BitConst(BitValue.HIGH)
     };
 
+    /**
+     * Class constructor. Creates a new combo box for the cell and
+     * adds possible states.
+     */
     public OutputCellEditor() {
         JComboBox<Bit> comboBox = new JComboBox<Bit>();
         for (Bit aBit : outputList) {
@@ -37,7 +42,9 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
     }
 
     /**
-     * @return Object containing associated bit value
+     * Returns the bit for the current cell.
+     * 
+     * @return Object containing associated bit.
      */
     @Override
     public Object getCellEditorValue() {
@@ -45,12 +52,14 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
     }
 
     /** 
-     * @param table
-     * @param value
-     * @param isSelected
-     * @param row
-     * @param column
-     * @return Component
+     * Gets the table editor component.
+     * 
+     * @param table The current table.
+     * @param value The selected value.
+     * @param isSelected If the cell is selected.
+     * @param row The current row index.
+     * @param column The current column index.
+     * @return Cell editor component.
      */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
@@ -67,9 +76,10 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
         return this.comboBox;
     }
 
-    
-    /** Handles action performed on the editor
-     * @param event
+    /**
+     * Handles action performed on the editor.
+     * 
+     * @param event The event object.
      */
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -77,5 +87,6 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
         this.nextOutput = (Bit) this.comboBox.getSelectedItem();
         stopCellEditing();
     }
+
 }
 

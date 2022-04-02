@@ -22,6 +22,7 @@ import state_table_solver.stateTable.State;
  */
 
 public class CurrentStateCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+
     private State nextState;
     private int stateIndex;
     private JButton stateSelectorBtn;
@@ -34,7 +35,8 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
 
     /**
      * Class constructor. 
-     * @param c
+     * 
+     * @param c The controller for the cell editor.
      */
     public CurrentStateCellEditor(Controller c) {
         JButton stateSelectorBtn = new JButton();
@@ -47,7 +49,7 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
     }
 
     /** 
-     * @return State as an object value
+     * @return State as an object value.
      */
     @Override
     public Object getCellEditorValue() {
@@ -55,12 +57,14 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
     }
 
     /** 
-     * @param table
-     * @param value
-     * @param isSelected
-     * @param row
-     * @param column
-     * @return Component
+     * Gets the table editor component.
+     * 
+     * @param table The current table.
+     * @param value The selected value.
+     * @param isSelected If the cell is selected.
+     * @param row The current row index.
+     * @param column The current column index.
+     * @return Cell editor component.
      */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
@@ -74,8 +78,11 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
     }
 
     
-    /** Handles an action performed on the editor
-     * @param event
+    /** 
+     * Handles an action performed on the editor. 
+     * Renders a pop up to edit or delete the row.
+     * 
+     * @param event The event object
      */
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -111,14 +118,18 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         
     }
 
-    /** Setter for <code>stateIndex</code>
+    /** 
+     * Setter for <code>stateIndex</code>
+     * 
      * @param stateIndex
      */
     private void setStateIndex(int stateIndex) {
         this.stateIndex = stateIndex;
     }
 
-    /** Getter for <code>stateIndex</code>
+    /** 
+     * Getter for <code>stateIndex</code>
+     * 
      * @return State index value
      */
     private int getStateIndex() {

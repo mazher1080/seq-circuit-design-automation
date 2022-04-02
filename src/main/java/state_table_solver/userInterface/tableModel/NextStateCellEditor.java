@@ -15,14 +15,22 @@ import state_table_solver.stateTable.State;
  * @author Muneeb Azher
  */
 public class NextStateCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+
     private State nextState;
     private List<State> listNextState;
 
+    /**
+     * Class constructor.
+     * 
+     * @param listNextState The list of possible states for selection.
+     */
     public NextStateCellEditor(List<State> listNextState) {
         this.listNextState = listNextState;
     }
 
     /** 
+     * Get the value of the state cell.
+     * 
      * @return Object value of associated next state
      */
     @Override
@@ -31,12 +39,14 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
     }
 
     /** 
-     * @param table
-     * @param value
-     * @param isSelected
-     * @param row
-     * @param column
-     * @return Component
+     * Gets the table editor component.
+     * 
+     * @param table The current table.
+     * @param value The selected value.
+     * @param isSelected If the cell is selected.
+     * @param row The current row index.
+     * @param column The current column index.
+     * @return Cell editor component.
      */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
@@ -60,8 +70,10 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
         return comboNextState;
     }
     
-    /** Handles action performed on the editor
-     * @param event
+    /** 
+     * Handles action performed on the editor.
+     * 
+     * @param event The event object.
      */
     @Override
     public void actionPerformed(ActionEvent event) {
@@ -69,4 +81,5 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
         this.nextState = (State) comboNextState.getSelectedItem();
         stopCellEditing();
     }
+    
 }
