@@ -32,6 +32,7 @@ public class NextStateCellEditor extends AbstractCellEditor implements TableCell
         if (value instanceof State) {
             this.nextState = (State) value;
         }
+        
         JComboBox<State> comboNextState = new JComboBox<State>();
 
         for (State aState : listNextState) {

@@ -35,6 +35,7 @@ public abstract class StateTableUI {
 
     public void createStateTable(StateTableModel defaultTable) {
         this.jTable = new JTable(defaultTable);
+        this.jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         this.stateTableModel = defaultTable;
         JTableHeader th = this.jTable.getTableHeader();
         th.setReorderingAllowed(false); // Disable column moving
@@ -60,7 +61,6 @@ public abstract class StateTableUI {
     public void refreshUI() {
         createStateTable(getModel());
         setTableWidth(getTableWidth());
-        // adjustTableHeight();
     }
 
     public abstract int getTableWidth();
@@ -76,13 +76,6 @@ public abstract class StateTableUI {
         defaultDim.width = width;
         getJTable().setPreferredSize(defaultDim);
         getJTable().setPreferredScrollableViewportSize(getJTable().getPreferredSize());
-    }
-
-    public void adjustTableHeight() {
-        Dimension currentDim = getJTable().getPreferredSize();
-        Dimension scrollViewDim = getJTable().getPreferredScrollableViewportSize();
-        System.out.println(currentDim);
-        System.out.println(scrollViewDim);
     }
 
     public Object[] getEmptyRow() {

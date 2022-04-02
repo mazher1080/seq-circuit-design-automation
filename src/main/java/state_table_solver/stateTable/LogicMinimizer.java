@@ -1,5 +1,7 @@
 package state_table_solver.stateTable;
 
+import java.io.Serializable;
+
 import state_table_solver.booleanLogic.SumOfProducts;
 
 /**
@@ -9,7 +11,7 @@ import state_table_solver.booleanLogic.SumOfProducts;
  * @author Jacob Head
  */
 
-public interface LogicMinimizer {
+public interface LogicMinimizer extends Serializable {
 
     /**
      * Method used to minimize a SumOfProducts

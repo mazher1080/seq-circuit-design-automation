@@ -59,6 +59,9 @@ public class Controller implements Serializable {
      */
     public void createNewProject() {
         int response = mainFrame().renderTableSelection();
+        
+        // Selection window closed
+        if(response == -1) return;
 
         StateTable defaultTable;
         if(response == 0) {
@@ -82,7 +85,7 @@ public class Controller implements Serializable {
             defaultTableUI = new MealyTableUI(this);
         }
         mainFrame().setStateTableUI(defaultTableUI);
-        mainFrame().renderTable();
+        loadUserInterface();
         System.out.println(appData().getStateTable());
     }
 
@@ -120,18 +123,29 @@ public class Controller implements Serializable {
     public void openProjectFile() {
         String filePath = mainFrame().renderFileChooser();
         
-        if(filePath == null) {
-            mainFrame().renderErrorAlert(
-                "Cannot open file. Filepath is not specified."
-            );
-            return;
-        }
+        if(filePath == "" || filePath == null) return;
 
         try {
             appData().open(filePath);
         } catch (Exception e) {
             mainFrame().renderErrorAlert("Cannot open selected file.");
         }
+
+        StateTableUI defaultTableUI;
+
+        // Have to do this disgusting class check due to serialization of abstract classes.
+        // Sorry Dr. Norvell
+        if(appData().getStateTable().getTableType() == MooreTable.class) {
+            defaultTableUI = new MooreTableUI(this);
+        } else if (appData().getStateTable().getTableType() == MealyTable.class) {
+            defaultTableUI = new MealyTableUI(this);
+        } else {
+            mainFrame().renderErrorAlert("Selected file does not contain a state table project.");
+            return;
+        }
+
+        mainFrame().setStateTableUI(defaultTableUI);
+        loadUserInterface();
     }
 
     /**
@@ -160,10 +174,7 @@ public class Controller implements Serializable {
     public void exportVHDL() {
         String filePath = mainFrame().renderFileSaver();
 
-        if(filePath == null) {
-            mainFrame().renderErrorAlert("Cannot export VHDL to unspecified file path.");
-            return;
-        }
+        if(filePath == null || filePath == "") return;
 
         if(appData == null || appData.getStateTable() == null) {
             mainFrame().renderErrorAlert("Cannot export VHDL. State table data is invalid.");
@@ -176,7 +187,7 @@ public class Controller implements Serializable {
 
     public void removeRow(int rowIndex) {
         mainFrame().getStateTableUI().deleteRow(rowIndex);
-        mainFrame().renderTable();
+        mainFrame().renderCenterPanel();
     }
 
     public void addState() {
@@ -194,8 +205,23 @@ public class Controller implements Serializable {
             appData().getStateTable().addState(stateId);
             mainFrame().getStateTableUI().getModel().fireTableDataChanged();
             mainFrame().getStateTableUI().refreshUI();
-            mainFrame().renderTable();
+            mainFrame().renderCenterPanel();
         }
+    }
+
+    /**
+     * Loads the user inerface.
+     */
+    private void loadUserInterface() {
+        String projName = "Project1";
+        try {
+            projName = appData().getFileName();
+        } catch (Exception e) {};
+
+        mainFrame().renderCenterPanel();
+        mainFrame().renderHeader(appData().getStateTable().getName(), projName);
+        mainFrame().repaint();
+        mainFrame().validate();
     }
 
 }

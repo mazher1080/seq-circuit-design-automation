@@ -31,6 +31,27 @@ public class MooreTable extends StateTable {
     }
 
     /**
+     * Returns the table name.
+     * @see StateTable
+     * 
+     * @return The table name.
+     */
+    @Override
+    public String getName() {
+        return "Moore";
+    }
+
+    /**
+     * Used for determining a the table class when loading data from a file.
+     * 
+     * @return The concrete class of the table.
+     */
+    @Override
+    public Class<?> getTableType() {
+        return this.getClass();
+    }
+
+    /**
 	 * Gets the non-minimized sum of products for the output.
 	 */
     @Override

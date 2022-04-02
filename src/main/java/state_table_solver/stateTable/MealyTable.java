@@ -20,6 +20,32 @@ public class MealyTable extends StateTable {
         super();
     }
 
+    /**
+     * Used for determining a the table class when loading data from a file.
+     * 
+     * @return The concrete class of the table.
+     */
+    @Override
+    public Class<?> getTableType() {
+        return this.getClass();
+    }
+
+    /**
+     * Returns the table name.
+     * @see StateTable
+     * 
+     * @return The table name.
+     */
+    @Override
+    public String getName() {
+        return "Mealy";
+    }
+
+    /**
+     * Gets the sum of product for the output when it is high.
+     * 
+     * @return The output sum of products.
+     */
     @Override
     public SumOfProducts getOutputSoP() {
         SumOfProducts resultSoP = new SumOfProducts();

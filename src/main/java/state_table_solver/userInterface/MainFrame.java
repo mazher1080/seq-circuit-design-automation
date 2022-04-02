@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import state_table_solver.AppData;
+
 import javax.swing.JOptionPane;
 import java.awt.*;
 
@@ -28,7 +30,9 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private ToolBar toolBar;
     private StateTableUI stateTableUI;
-    private JPanel mainPanel;
+    private JPanel centerPanel;
+    private JPanel tableContainer = new JPanel();
+    private Header projHeader;
     private JLabel addStateLabel = new JLabel("New state id:");
     private JTextField textField = new JTextField();
     private Object textInput = new Object[] {addStateLabel, textField};
@@ -43,12 +47,29 @@ public class MainFrame extends JFrame {
         this.setSize(1000, 750);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.setLayout(new BorderLayout());
 
         this.toolBar = new ToolBar();
-        this.mainPanel = new JPanel();
+        this.toolBar.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        this.getContentPane().add(this.toolBar, BorderLayout.PAGE_START);
+        this.projHeader = new Header("", "", 0);
+
+        this.centerPanel = new JPanel();
+        this.centerPanel.setLayout(new BorderLayout());
+        this.centerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        this.add(this.toolBar, BorderLayout.PAGE_START);
+        this.add(this.centerPanel, BorderLayout.SOUTH);
         this.setVisible(true);
+    }
+
+    /**
+     * Renders a header with a given label and name.
+     * 
+     */
+    public void renderHeader(String label, String name) {
+        this.projHeader.setLabelText(label);
+        this.projHeader.setNameText(name);
     }
 
     /**
@@ -83,27 +104,33 @@ public class MainFrame extends JFrame {
      * @param booleanEquationStrings The list of strings to display as the boolean output equations.
      */
     public void renderDerivedSoP(java.util.List<String> booleanEquationStrings) {
-        JDialog d1 = new JDialog(this, "Minimized Boolean Equations");
-        d1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        d1.setLayout(new BoxLayout(d1.getContentPane(), BoxLayout.PAGE_AXIS));
+        JDialog dialog1 = new JDialog(this, "Minimized Boolean Equations");
+        dialog1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        JScrollPane popupScrollView = new JScrollPane();
+        JPanel popupView = new JPanel();
+        
+        popupView.setLayout(new BoxLayout(popupView, BoxLayout.PAGE_AXIS));
 
         int padding = 10;
-        d1.getRootPane().setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
+        popupView.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
  
         for(String boolEqnString : booleanEquationStrings) {
             JLabel l = new JLabel(boolEqnString);
-            d1.add(l);
-            d1.add(Box.createVerticalStrut(50));
+            popupView.add(l);
+            popupView.add(Box.createVerticalStrut(50));
         }
+        popupScrollView.setViewportView(popupView);
+        dialog1.add(popupScrollView);
 
         int dialogSize = 400;
-        d1.setLocationRelativeTo(this);
-        Double centeredX = d1.getLocation().getX() - (dialogSize / 2);
-        Double centeredY = d1.getLocation().getY() - (dialogSize / 2);
-        d1.setLocation(centeredX.intValue(), centeredY.intValue());
+        dialog1.setLocationRelativeTo(this);
+        Double centeredX = dialog1.getLocation().getX() - (dialogSize / 2);
+        Double centeredY = dialog1.getLocation().getY() - (dialogSize / 2);
+        dialog1.setLocation(centeredX.intValue(), centeredY.intValue());
         
-        d1.setSize(dialogSize, dialogSize);
-        d1.setVisible(true);
+        dialog1.setSize(dialogSize, dialogSize);
+        dialog1.setVisible(true);
     }
 
     /**
@@ -144,14 +171,17 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void renderTable() {
+    public void renderCenterPanel() {
         JTable stateTable = getStateTableUI().getJTable();
         JScrollPane jPane = new JScrollPane(stateTable);
-        mainPanel.removeAll();
-        mainPanel.add(jPane);
-        this.getContentPane().add(this.mainPanel, BorderLayout.CENTER);
-        this.mainPanel.repaint();
-        this.mainPanel.revalidate();
+        tableContainer.removeAll();
+        centerPanel.removeAll();
+        this.tableContainer.add(jPane);
+        centerPanel.add(this.projHeader, BorderLayout.PAGE_START);
+        centerPanel.add(this.tableContainer);
+        centerPanel.repaint();
+        centerPanel.validate();
+        this.getContentPane().add(this.centerPanel);
     }
 
     public int renderNewStateChooser() {

@@ -43,6 +43,13 @@ public abstract class StateTable implements Serializable {
         this.stateCount = 0;
 	}
 
+    /**
+     * Returns the table name.
+     * 
+     * @return The table name.
+     */
+    public abstract String getName();
+
 	/**
 	 * Gets the non-minimized sum of products for the output.
 	 */
@@ -69,6 +76,13 @@ public abstract class StateTable implements Serializable {
 	 * @param rowIndex Index of the row to remove.
 	 */
     protected abstract void addDefaultOutputRow();
+
+    /**
+     * Used for determining a the table class when loading data from a file.
+     * 
+     * @return The concrete class of the table.
+     */
+    public abstract Class<?> getTableType();
 
     /**
      * Getter for state count.
@@ -253,9 +267,23 @@ public abstract class StateTable implements Serializable {
     public void removeRow(int rowIndex) {
         assert (rowIndex >= 0 && rowIndex < this.getStateCount());
 
+        State stateToRemove = this.getCurrentStateCol().get(rowIndex);
+
         this.getCurrentStateCol().remove(rowIndex);
         this.getNextHighStateCol().remove(rowIndex);
         this.getNextLowStateCol().remove(rowIndex);
+
+        for(int i = 0; i < this.getNextHighStateCol().size(); i++){
+            State defaultState = this.getCurrentStateCol().get(i);
+            System.out.println(this.getNextHighStateCol().get(i));
+            if(this.getNextHighStateCol().get(i) == stateToRemove) {
+                this.getNextHighStateCol().set(i, defaultState);
+            }
+            if(this.getNextLowStateCol().get(i) == stateToRemove) {
+                this.getNextLowStateCol().set(i, defaultState);
+            }
+        }
+
         this.removeOutputRow(rowIndex);
         this.setStateCount(this.getStateCount() - 1);
     }
