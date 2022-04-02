@@ -1,8 +1,8 @@
 package state_table_solver.userInterface.tableModel;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,7 +11,6 @@ import javax.swing.JRootPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
-
 import state_table_solver.Controller;
 import state_table_solver.stateTable.State;
 
@@ -19,6 +18,7 @@ import state_table_solver.stateTable.State;
  * <p>State cell editor for current state column in JTable.
  * 
  * @author Jacob Head
+ * @author Muneeb Azher
  */
 
 public class CurrentStateCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
@@ -42,11 +42,22 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         this.controller = c;
     }
 
+    /** 
+     * @return State as an object value
+     */
     @Override
     public Object getCellEditorValue() {
         return this.nextState;
     }
 
+    /** 
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param row
+     * @param column
+     * @return Component
+     */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         this.parentPane = table.getRootPane();
@@ -58,6 +69,10 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         return this.stateSelectorBtn;
     }
 
+    
+    /** Handles an action performed on the editor
+     * @param event
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         int response = JOptionPane.showOptionDialog(
@@ -92,11 +107,17 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         
     }
 
-    public void setStateIndex(int stateIndex) {
+    /** Setter for <code>stateIndex</code>
+     * @param stateIndex
+     */
+    private void setStateIndex(int stateIndex) {
         this.stateIndex = stateIndex;
     }
 
-    public int getStateIndex() {
+    /** Getter for <code>stateIndex</code>
+     * @return State index value
+     */
+    private int getStateIndex() {
         return stateIndex;
     }
 

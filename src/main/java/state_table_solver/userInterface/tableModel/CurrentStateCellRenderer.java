@@ -1,4 +1,5 @@
 package state_table_solver.userInterface.tableModel;
+
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,6 +11,16 @@ import state_table_solver.stateTable.State;
  */
 
 public class CurrentStateCellRenderer extends DefaultTableCellRenderer {
+    /** 
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param hasFocus
+     * @param row
+     * @param column
+     * @return Component
+     */
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
             if (value instanceof State) {

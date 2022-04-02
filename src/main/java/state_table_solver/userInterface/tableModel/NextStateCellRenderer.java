@@ -10,6 +10,17 @@ import state_table_solver.stateTable.State;
  * @author Jacob Head
  */
 public class NextStateCellRenderer extends DefaultTableCellRenderer {
+    
+    /** 
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param hasFocus
+     * @param row
+     * @param column
+     * @return Component
+     */
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
             if (value instanceof State) {
