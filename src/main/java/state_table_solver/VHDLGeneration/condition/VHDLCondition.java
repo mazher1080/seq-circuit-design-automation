@@ -7,5 +7,12 @@ package state_table_solver.VHDLGeneration.condition;
  */
 
 public interface VHDLCondition {
+
+    /**
+     * Method for returning the string representation of a vhdl condition.
+     * 
+     * @return The string representation of the vhdl condition.
+     */
     public String toString();
+
 }

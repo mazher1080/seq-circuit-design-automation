@@ -15,11 +15,19 @@ import state_table_solver.booleanLogic.BitValue;
  */
 
 public class VHDLFileWriter extends VHDLWritableData {
+    
     private static final String FILE_EXTENSION = ".vhd";
     private String entityName;
     private String clockEdge = "1";
     private AppData appData;
 
+    /**
+     * Class constructor. Creates a new FileWriteManager for used to write the given
+     * app data to a vhdl file at the specfied file path.
+     * 
+     * @param filePath
+     * @param appData
+     */
     public VHDLFileWriter(String filePath, AppData appData) {
         super(new FileWriteManager(filePath + FILE_EXTENSION));
         this.appData = appData;
@@ -27,10 +35,18 @@ public class VHDLFileWriter extends VHDLWritableData {
         this.entityName = f.getName();
     }
 
+    /**
+     * Getter for initial state.
+     * @return The current initial state.
+     */
     private VHDLSignal getInitialState() {
         return this.appData.getStateTable().getCurrentStateCol().get(0);
     }
 
+    /**
+     * Getter for state list string.
+     * @return The current state list string.
+     */
     private String getStateListString() {
         String output = "";
         StateTable stTable = this.appData.getStateTable();
@@ -43,6 +59,10 @@ public class VHDLFileWriter extends VHDLWritableData {
         return output;
     }
 
+    /**
+     * Writes a state transition string to the current file
+     * based on the current app data.
+     */
     private void writeStateTransitionString() {
         StateTable stTable = this.appData.getStateTable();
         VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
@@ -69,6 +89,10 @@ public class VHDLFileWriter extends VHDLWritableData {
         }
     }
 
+    /**
+     * Writes a output generation string to the current file
+     * based on the current app data.
+     */
     private void writeOutputGeneration() {
         StateTable stTable = this.appData.getStateTable();
         VHDLCondition highVal = new Var(new VHDLSignalVar("'1'"));
@@ -143,11 +167,17 @@ public class VHDLFileWriter extends VHDLWritableData {
         conditionalOutput.writeConditionalAssignmentString();
     }
 
+    /**
+     * Writes the import strings to the current file.
+     */
     private void writeImports() {
         writeLine("library ieee");
         writeLine("use ieee.std_logic_1164.all;");
     }
 
+    /**
+     * Writes the entity string to the current file.
+     */
     private void writeEntity() {
         writeLine("entity " + this.entityName + " is");
         indent();
@@ -158,6 +188,9 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeLine("end " + this.entityName + ";");
     }
 
+    /**
+     * Writes the archtecture string to the current file.
+     */
     private void writeArchitecture() {
         writeLine("architecture datapath of " + this.entityName + " is");
         indent();
@@ -175,6 +208,9 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeLine("end datapath;");
     }
 
+    /**
+     * Writes the data flow logic string to the current file.
+     */
     private void writeDataFlowLogic() {
         writeLine("process(clk)");
         writeLine("begin");
@@ -187,6 +223,9 @@ public class VHDLFileWriter extends VHDLWritableData {
         unIndent();
     }
 
+    /**
+     * Writes the clock transition string to the current file.
+     */
     private void writeClockTransition() {
         writeLine("if (clk'event and clk = '" + this.clockEdge + "') then");
         indent();
@@ -197,6 +236,9 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeLine("end process;");
     }
 
+    /**
+     * Writes the next state generation string to the current file.
+     */
     private void writeNextStateGeneration() {
         writeLine("process(current_state, " + this.appData.getStateTable().HIGH_INPUT.getId()  + ")");
         writeLine("begin");
@@ -210,6 +252,9 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeLine("end process;");
     }
 
+    /**
+     * Writes the vhdl file.
+     */
     public void writeFile() {
         startWriting();
         writeImports();
@@ -219,4 +264,5 @@ public class VHDLFileWriter extends VHDLWritableData {
         writeArchitecture();
         endWriting();
     }
+
 }

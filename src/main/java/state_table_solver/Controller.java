@@ -170,6 +170,9 @@ public class Controller implements Serializable {
         }
     }
 
+    /**
+     * Exports the current state table to a vhdl file.
+     */
     public void exportVHDL() {
         String filePath = mainFrame().renderFileSaver();
 
@@ -189,6 +192,10 @@ public class Controller implements Serializable {
         mainFrame().renderCenterPanel();
     }
 
+    /**
+     * Adds a new state to the state table. Renders a pop up to specify
+     * the state id.
+     */
     public void addState() {
         int response = mainFrame().renderNewStateChooser();
         // Add button was clicked
@@ -208,7 +215,7 @@ public class Controller implements Serializable {
     }
 
     /**
-     * Loads the user inerface.
+     * Loads the user inerface. Renders the center panel and header.
      */
     private void loadUserInterface() {
         String projName = "Project1";

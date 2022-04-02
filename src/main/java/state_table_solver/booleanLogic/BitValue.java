@@ -33,6 +33,11 @@ public enum BitValue {
         return this.label;
     }
 
+    /**
+     * Returns the negated value of this bit product
+     * 
+     * @return The negated value of this bit product
+     */
     public BitValue negatedValue() {
         if(this.equals(BitValue.HIGH)) {
             return BitValue.LOW;

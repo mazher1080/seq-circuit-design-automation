@@ -12,7 +12,8 @@ public class App
     private Controller controller;
 
     /**
-     * Class constructor creates a new application.
+     * Class constructor. Creates a new application.
+     * Initializes controller with an event listener.
      */
     public App() {
         this.controller = new Controller();

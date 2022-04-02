@@ -32,6 +32,10 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
     private Object textInput = new Object[] {inputLabel, textField};
     private Object[] options = new Object[] {"Delete", "Save", "Cancel"};
 
+    /**
+     * Class constructor. 
+     * @param c
+     */
     public CurrentStateCellEditor(Controller c) {
         JButton stateSelectorBtn = new JButton();
         stateSelectorBtn.setOpaque(false);
@@ -41,7 +45,7 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         this.stateSelectorBtn = stateSelectorBtn;
         this.controller = c;
     }
-
+    
     @Override
     public Object getCellEditorValue() {
         return this.nextState;
@@ -92,11 +96,11 @@ public class CurrentStateCellEditor extends AbstractCellEditor implements TableC
         
     }
 
-    public void setStateIndex(int stateIndex) {
+    private void setStateIndex(int stateIndex) {
         this.stateIndex = stateIndex;
     }
 
-    public int getStateIndex() {
+    private int getStateIndex() {
         return stateIndex;
     }
 
