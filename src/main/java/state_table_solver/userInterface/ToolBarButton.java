@@ -15,7 +15,7 @@ import state_table_solver.userInterface.imageLoader.ImageLoader;
  */
 
 public class ToolBarButton extends JButton {
-    private static final Dimension DEFAULT_DIMENSION = new Dimension(140, 40);
+    private static final Dimension DEFAULT_DIMENSION = new Dimension(141, 40);
 
     /**
      * Class constructor. Creates a ToolBarButton with specified label.
@@ -28,7 +28,6 @@ public class ToolBarButton extends JButton {
         this.setPreferredSize(DEFAULT_DIMENSION);
         this.setMaximumSize(DEFAULT_DIMENSION);
         this.setMinimumSize(DEFAULT_DIMENSION);
-        this.setBorder(new RoundedBorder(15));
 
         Image iconImg = imgLoader.loadImage();
         if(iconImg != null) {

@@ -47,6 +47,7 @@ public class MainFrame extends JFrame {
         this.setSize(1000, 750);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
 
         this.toolBar = new ToolBar();
@@ -56,7 +57,7 @@ public class MainFrame extends JFrame {
 
         this.centerPanel = new JPanel();
         this.centerPanel.setLayout(new BorderLayout());
-        this.centerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         
         this.add(this.toolBar, BorderLayout.PAGE_START);
         this.add(this.centerPanel, BorderLayout.SOUTH);
@@ -141,6 +142,7 @@ public class MainFrame extends JFrame {
     public String renderFileChooser() {
         //Create a file chooser
         final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -159,6 +161,7 @@ public class MainFrame extends JFrame {
     public String renderFileSaver() {
         //Create a file chooser
         final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fc.showSaveDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {

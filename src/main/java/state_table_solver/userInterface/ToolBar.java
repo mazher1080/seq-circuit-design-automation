@@ -1,7 +1,8 @@
 package state_table_solver.userInterface;
 
-import java.awt.Dimension;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.JToolBar;
 
 import state_table_solver.userInterface.imageLoader.LocalImageLoader;
@@ -22,15 +23,16 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         super("ToolBar", JToolBar.HORIZONTAL);
         this.setFloatable(false);
+        this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
         this.buttons = new ToolBarButton[7];
-        buttons[0] = new ToolBarButton("New", new LocalImageLoader("/images/file-plus-outline.png"));
-        buttons[1] = new ToolBarButton("Open", new LocalImageLoader("/images/folder-open-outline.png"));
-        buttons[2] = new ToolBarButton("Save", new LocalImageLoader("/images/content-save-outline.png"));
-        buttons[3] = new ToolBarButton("Save As", new LocalImageLoader("/images/content-save-edit-outline.png"));
-        buttons[4] = new ToolBarButton("Derive", new LocalImageLoader("/images/function-variant.png"));
-        buttons[5] = new ToolBarButton("Export VHDL", new LocalImageLoader("/images/export-variant.png"));
-        buttons[6] = new ToolBarButton("Add State", new LocalImageLoader("/images/plus.png"));
+        buttons[0] = new ToolBarButton("Add State", new LocalImageLoader("/images/plus.png"));
+        buttons[1] = new ToolBarButton("New", new LocalImageLoader("/images/file-plus-outline.png"));
+        buttons[2] = new ToolBarButton("Open", new LocalImageLoader("/images/folder-open-outline.png"));
+        buttons[3] = new ToolBarButton("Save", new LocalImageLoader("/images/content-save-outline.png"));
+        buttons[4] = new ToolBarButton("Save As", new LocalImageLoader("/images/content-save-edit-outline.png"));
+        buttons[5] = new ToolBarButton("Derive", new LocalImageLoader("/images/function-variant.png"));
+        buttons[6] = new ToolBarButton("Export VHDL", new LocalImageLoader("/images/export-variant.png"));
 
         addButtons();
     }

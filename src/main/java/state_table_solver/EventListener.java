@@ -26,10 +26,21 @@ public class EventListener {
         MainFrame view = controller.mainFrame();
 
         /**
+         * Connecting the Add State toolbar button's action listener 
+         * to controller's addState method.
+         */
+        view.getToolBarButton(0).addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addState();
+            }
+        });
+
+        /**
          * Connecting the New Project toolbar button's action listener 
          * to controller's createNewProject method.
          */
-        view.getToolBarButton(0).addActionListener(new ActionListener() {
+        view.getToolBarButton(1).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.createNewProject(false);
@@ -40,7 +51,7 @@ public class EventListener {
          * Connecting the Open toolbar button's action listener 
          * to controller's openProjectFile method.
          */
-        view.getToolBarButton(1).addActionListener(new ActionListener() {
+        view.getToolBarButton(2).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.openProjectFile();
@@ -51,7 +62,7 @@ public class EventListener {
          * Connecting the Save toolbar button's action listener 
          * to controller's saveProjectFile method.
          */
-        view.getToolBarButton(2).addActionListener(new ActionListener() {
+        view.getToolBarButton(3).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.saveProjectFile();
@@ -62,7 +73,7 @@ public class EventListener {
          * Connecting the Save As toolbar button's action listener 
          * to controller's saveAsProjectFile method.
          */
-        view.getToolBarButton(3).addActionListener(new ActionListener() {
+        view.getToolBarButton(4).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.saveAsProjectFile();
@@ -73,7 +84,7 @@ public class EventListener {
          * Connecting the Derive toolbar button's action listener 
          * to controller's deriveSoP method.
          */
-        view.getToolBarButton(4).addActionListener(new ActionListener() {
+        view.getToolBarButton(5).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.deriveSoP();
@@ -84,21 +95,10 @@ public class EventListener {
          * Connecting the Derive toolbar button's action listener 
          * to controller's deriveSoP method.
          */
-        view.getToolBarButton(5).addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.exportVHDL();
-            }
-        });
-
-        /**
-         * Connecting the Add State toolbar button's action listener 
-         * to controller's addState method.
-         */
         view.getToolBarButton(6).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.addState();
+                controller.exportVHDL();
             }
         });
     }

@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 /**
  * <p> Controller is a class which performs operations on the app model and the app view.
  * These operations may be called by the EventListener class.
@@ -49,6 +51,7 @@ public class Controller implements Serializable {
      */
     public void initApplication() {
         this.appData = new AppData();
+        FlatLightLaf.setup();
         this.mainFrame = new MainFrame(appData);
         createNewProject(true);
     }

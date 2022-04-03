@@ -25,6 +25,7 @@ public abstract class StateTableUI {
     private JTable jTable;
     private Controller controller;
     private StateTableModel stateTableModel;
+    private static final int ROW_HEIGHT = 30;
 
     public StateTableUI(Controller c) {
         this.controller = c;
@@ -36,6 +37,8 @@ public abstract class StateTableUI {
     public void createStateTable(StateTableModel defaultTable) {
         this.jTable = new JTable(defaultTable);
         this.jTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        this.jTable.setRowHeight(ROW_HEIGHT);
+        this.jTable.setSelectionBackground(Color.WHITE);
         this.stateTableModel = defaultTable;
         JTableHeader th = this.jTable.getTableHeader();
         th.setReorderingAllowed(false); // Disable column moving
