@@ -52,7 +52,7 @@ public class Controller implements Serializable {
     public void initApplication() {
         this.appData = new AppData();
         FlatLightLaf.setup();
-        this.mainFrame = new MainFrame(appData);
+        this.mainFrame = new MainFrame();
         createNewProject(true);
     }
 

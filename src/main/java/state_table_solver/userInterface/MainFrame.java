@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
      * Class constructor. Initializes the main frame with a toolbar
      * and state table.
      */
-    public MainFrame(AppData appData) {
+    public MainFrame() {
         super("State Table Solver");
         this.setSize(1000, 750);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
