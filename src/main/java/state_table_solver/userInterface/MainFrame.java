@@ -105,7 +105,7 @@ public class MainFrame extends JFrame {
      * @param booleanEquationStrings The list of strings to display as the boolean output equations.
      */
     public void renderDerivedSoP(java.util.List<String> booleanEquationStrings) {
-        JDialog dialog1 = new JDialog(this, "Minimized Boolean Equations");
+        JDialog dialog1 = new JDialog(this, "Boolean Equations");
         dialog1.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JScrollPane popupScrollView = new JScrollPane();
