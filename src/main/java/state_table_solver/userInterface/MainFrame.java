@@ -12,9 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import state_table_solver.AppData;
-
 import javax.swing.JOptionPane;
 import java.awt.*;
 
