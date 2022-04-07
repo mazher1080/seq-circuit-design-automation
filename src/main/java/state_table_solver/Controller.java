@@ -159,6 +159,7 @@ public class Controller implements Serializable {
         
         if(filePath == null) return;
         appData().saveAs(filePath);
+        loadUserInterface();
     }
 
     /**
