@@ -25,6 +25,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class Controller implements Serializable {
 
+    private static final String DEFAULT_PROJECT_NAME = "untitled.proj";
     private AppData appData;
     private MainFrame mainFrame;
 
@@ -62,6 +63,7 @@ public class Controller implements Serializable {
      */
     public void createNewProject(boolean isFirstProject) {
         int response = mainFrame().renderTableSelection();
+        appData().setFilePath(null);
         
         // Selection window closed
         if(response == -1 && !isFirstProject) return;
@@ -222,9 +224,9 @@ public class Controller implements Serializable {
      * Loads the user inerface. Renders the center panel and header.
      */
     private void loadUserInterface() {
-        String projName = "Project1";
+        String projName = DEFAULT_PROJECT_NAME;
         try {
-            projName = appData().getFileName();
+            if(appData().getFilePath() != null) projName = appData().getFileName();
         } catch (Exception e) {};
 
         mainFrame().renderCenterPanel();
