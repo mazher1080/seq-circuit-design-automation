@@ -125,8 +125,16 @@ public abstract class StateTable implements Serializable {
 	 */
 	public void setStateCount(int stateCount) {
         assert (stateCount > 0);
-        int oldEncodingCount = (int) Utilities.log2(getStateCount()) + 1;
-        int newEncodingCount = (int) Utilities.log2(stateCount) + 1;
+        int oldEncodingCount = 0;
+        int newEncodingCount = 0;
+
+        if(stateCount == 1 || getStateCount() == 1) {
+            newEncodingCount = 1;
+        } else {
+            oldEncodingCount = (int) Utilities.log2(getStateCount() - 1) + 1;
+            newEncodingCount = (int) Utilities.log2(stateCount - 1) + 1;
+        }
+
         if(newEncodingCount != oldEncodingCount) {
             for(State s : getCurrentStateCol()) {
                 s.setEncodingCount(newEncodingCount);
