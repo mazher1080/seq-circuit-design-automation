@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 public class BitValueTest {
     @Test
     public void equalityTest() {
-        BitValue highVal1 = BitValue.HIGH;
-        BitValue highVal2 = BitValue.HIGH;
+        BitValue highVal1 = Bit.HIGH;
+        BitValue highVal2 = Bit.HIGH;
         BitValue lowVal1 = BitValue.LOW;
         BitValue lowVal2 = BitValue.LOW;
         BitValue unknownVal1 = BitValue.UNKNOWN;
@@ -21,7 +21,7 @@ public class BitValueTest {
 
     @Test 
     public void toStringTest() {
-        BitValue highVal = BitValue.HIGH;
+        BitValue highVal = Bit.HIGH;
         BitValue lowVal = BitValue.LOW;
         BitValue unknownVal = BitValue.UNKNOWN;
 
@@ -32,7 +32,7 @@ public class BitValueTest {
 
     @Test
     public void testNegation() {
-        BitValue highVal = BitValue.HIGH;
+        BitValue highVal = Bit.HIGH;
         BitValue lowVal = BitValue.LOW;
         BitValue unknownVal = BitValue.UNKNOWN;
 
@@ -46,13 +46,13 @@ public class BitValueTest {
         boolean failedB1 = false;
         boolean failedB2 = false;
         try {
-            new BitVar("'", BitValue.HIGH);
+            new BitVar("'", Bit.HIGH);
         } catch (AssertionError e) {
             failedB1 = true;
         }
 
         try {
-            new BitVar("0", BitValue.HIGH);
+            new BitVar("0", Bit.HIGH);
         } catch (AssertionError e) {
             failedB2 = true;
         }

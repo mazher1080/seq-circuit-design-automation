@@ -59,7 +59,7 @@ public class MooreTable extends StateTable {
         List<Bit> outputCol = getOutputCol();
 
         for(int i = 0; i < outputCol.size(); i++) {
-            if(outputCol.get(i).getValue() == BitValue.HIGH) {
+            if(outputCol.get(i).getValue() == Bit.HIGH) {
                 State curState = getCurrentStateCol().get(i);
                 BitProduct stateBits = curState.getBitProduct();
 

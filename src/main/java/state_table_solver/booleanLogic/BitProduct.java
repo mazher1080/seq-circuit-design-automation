@@ -162,7 +162,7 @@ public class BitProduct implements Serializable {
 	 * @param b The bit to check for HIGH value.
 	 */
 	private void setHighBitCountBasedOn(Bit b, boolean isIncrement) {
-		if(b.getValue() == BitValue.HIGH)
+		if(b.getValue() == Bit.HIGH)
 			setHighBitCount(isIncrement ? getHighBitCount() + 1 : getHighBitCount() - 1);
 	}
 

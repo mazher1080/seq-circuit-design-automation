@@ -39,10 +39,10 @@ public enum BitValue {
      * @return The negated value of this bit product
      */
     public BitValue negatedValue() {
-        if(this.equals(BitValue.HIGH)) {
+        if(this.equals(Bit.HIGH)) {
             return BitValue.LOW;
         } else if(this.equals(BitValue.LOW)) {
-            return BitValue.HIGH;
+            return Bit.HIGH;
         } else {
             return BitValue.UNKNOWN;
         }

@@ -3,7 +3,7 @@ package state_table_solver.stateTable;
 import org.junit.Test;
 
 import state_table_solver.booleanLogic.BitConst;
-import state_table_solver.booleanLogic.BitValue;
+import state_table_solver.booleanLogic.Bit;
 import state_table_solver.booleanLogic.SumOfProducts;
 
 import static org.junit.Assert.*;
@@ -61,8 +61,8 @@ public class MooreTableTest {
         mooreTable.addState("Q4");
         mooreTable.addState("Q5");
 
-        mooreTable.getOutputCol().set(0, new BitConst(BitValue.HIGH));
-        mooreTable.getOutputCol().set(2, new BitConst(BitValue.LOW));
+        mooreTable.getOutputCol().set(0, new BitConst(Bit.HIGH));
+        mooreTable.getOutputCol().set(2, new BitConst(Bit.LOW));
 
         State Q1 = mooreTable.getCurrentStateCol().get(0);
         mooreTable.getNextHighStateCol().set(2, Q1);
@@ -104,8 +104,8 @@ public class MooreTableTest {
         mooreTable.addState("Q4");
         mooreTable.addState("Q5");
 
-        mooreTable.getOutputCol().set(0, new BitConst(BitValue.HIGH));
-        mooreTable.getOutputCol().set(2, new BitConst(BitValue.HIGH));
+        mooreTable.getOutputCol().set(0, new BitConst(Bit.HIGH));
+        mooreTable.getOutputCol().set(2, new BitConst(Bit.HIGH));
 
         State Q1 = mooreTable.getCurrentStateCol().get(0);
         mooreTable.getNextHighStateCol().set(2, Q1);

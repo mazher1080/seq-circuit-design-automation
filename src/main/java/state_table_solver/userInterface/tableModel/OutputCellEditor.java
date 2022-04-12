@@ -24,7 +24,7 @@ public class OutputCellEditor extends AbstractCellEditor implements TableCellEdi
     private static final Bit[] outputList = new Bit[] {
         new BitConst(BitValue.UNKNOWN),
         new BitConst(BitValue.LOW),
-        new BitConst(BitValue.HIGH)
+        new BitConst(Bit.HIGH)
     };
 
     /**

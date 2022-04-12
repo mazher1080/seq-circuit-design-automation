@@ -11,9 +11,9 @@ import state_table_solver.booleanLogic.SumOfProducts;
 public class LogicMinimizerTest {
     @Test
     public void minimizeTest() {
-        Bit a = new BitVar("a", BitValue.HIGH);
-        Bit b = new BitVar("b", BitValue.HIGH);
-        Bit c = new BitVar("c", BitValue.HIGH);
+        Bit a = new BitVar("a", Bit.HIGH);
+        Bit b = new BitVar("b", Bit.HIGH);
+        Bit c = new BitVar("c", Bit.HIGH);
         Bit ap = new BitVar("a", BitValue.LOW);
         Bit bp = new BitVar("b", BitValue.LOW);
         Bit cp = new BitVar("c", BitValue.LOW);

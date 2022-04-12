@@ -53,7 +53,7 @@ public class MealyTable extends StateTable {
         List<Bit> nextLowOutputCol = getNextLowOutputCol();
 
         for(int i = 0; i < nextHighOutputCol.size(); i++) {
-            if(nextHighOutputCol.get(i).getValue() == BitValue.HIGH) {
+            if(nextHighOutputCol.get(i).getValue() == Bit.HIGH) {
                 State curState = getCurrentStateCol().get(i);
                 BitProduct stateBits = curState.getBitProduct();
 
@@ -66,7 +66,7 @@ public class MealyTable extends StateTable {
         }
 
         for(int i = 0; i < nextLowOutputCol.size(); i++) {
-            if(nextLowOutputCol.get(i).getValue() == BitValue.HIGH) {
+            if(nextLowOutputCol.get(i).getValue() == Bit.HIGH) {
                 State curState = getCurrentStateCol().get(i);
                 BitProduct stateBits = curState.getBitProduct();
 

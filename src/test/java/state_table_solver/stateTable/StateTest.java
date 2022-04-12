@@ -12,7 +12,7 @@ public class StateTest {
     public void toEncodedStringTest() {
         State s1 = new State("Q0", "d");
 
-        s1.pushBit(BitValue.HIGH);
+        s1.pushBit(Bit.HIGH);
         assertEquals(s1.toEncodedString(), "d0");
 
         s1.pushBit(BitValue.LOW);
@@ -49,9 +49,9 @@ public class StateTest {
     @Test
     public void encodingCountTest() {
         State s1 = new State("Q0", "d");
-        BitValue[] expectedBitVals = {BitValue.LOW, BitValue.LOW, BitValue.HIGH};
+        BitValue[] expectedBitVals = {BitValue.LOW, BitValue.LOW, Bit.HIGH};
 
-        s1.pushBit(BitValue.HIGH);
+        s1.pushBit(Bit.HIGH);
         s1.pushBit(BitValue.LOW);
         s1.setEncodingCount(3);
 

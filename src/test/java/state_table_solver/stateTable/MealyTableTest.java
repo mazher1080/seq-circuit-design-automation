@@ -3,7 +3,7 @@ package state_table_solver.stateTable;
 import org.junit.Test;
 
 import state_table_solver.booleanLogic.BitConst;
-import state_table_solver.booleanLogic.BitValue;
+import state_table_solver.booleanLogic.Bit;
 import state_table_solver.booleanLogic.SumOfProducts;
 
 import static org.junit.Assert.*;
@@ -65,8 +65,8 @@ public class MealyTableTest {
         mealyTable.addState("Q4");
         mealyTable.addState("Q5");
 
-        mealyTable.getNextHighOutputCol().set(0, new BitConst(BitValue.HIGH));
-        mealyTable.getNextLowOutputCol().set(2, new BitConst(BitValue.LOW));
+        mealyTable.getNextHighOutputCol().set(0, new BitConst(Bit.HIGH));
+        mealyTable.getNextLowOutputCol().set(2, new BitConst(Bit.LOW));
 
         State Q1 = mealyTable.getCurrentStateCol().get(0);
         mealyTable.getNextHighStateCol().set(2, Q1);
@@ -108,8 +108,8 @@ public class MealyTableTest {
         mealyTable.addState("Q4");
         mealyTable.addState("Q5");
 
-        mealyTable.getNextHighOutputCol().set(0, new BitConst(BitValue.HIGH));
-        mealyTable.getNextLowOutputCol().set(2, new BitConst(BitValue.HIGH));
+        mealyTable.getNextHighOutputCol().set(0, new BitConst(Bit.HIGH));
+        mealyTable.getNextLowOutputCol().set(2, new BitConst(Bit.HIGH));
 
         State Q1 = mealyTable.getCurrentStateCol().get(0);
         mealyTable.getNextHighStateCol().set(2, Q1);

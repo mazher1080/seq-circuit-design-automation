@@ -16,9 +16,9 @@ import java.io.Serializable;
 
 public abstract class StateTable implements Serializable {
 
-    public final Bit HIGH_INPUT = new BitVar("x", BitValue.HIGH);
+    public final Bit HIGH_INPUT = new BitVar("x", Bit.HIGH);
     public final Bit LOW_INPUT = new BitVar("x", BitValue.LOW);
-    public final Bit HIGH_OUTPUT = new BitVar("y", BitValue.HIGH);
+    public final Bit HIGH_OUTPUT = new BitVar("y", Bit.HIGH);
     public final Bit UNKNOWN_OUTPUT = new BitVar("y", BitValue.UNKNOWN);
     public final Bit LOW_OUTPUT = new BitVar("y", BitValue.LOW);
     public final String ENCODING_ID = "d";
@@ -255,7 +255,7 @@ public abstract class StateTable implements Serializable {
         // Set the binary encoded state value
         for(int i = encodingMap.length() - 1; i >= 0; i--) {
             if(encodingMap.charAt(i) == '1') {
-                s.pushBit(BitValue.HIGH);
+                s.pushBit(Bit.HIGH);
             } else {
                 s.pushBit(BitValue.LOW);
             }

@@ -12,6 +12,9 @@ import state_table_solver.VHDLGeneration.VHDLSignal;
 
 public abstract class Bit implements VHDLSignal, Serializable {
 
+    public static final BitValue HIGH = BitValue.HIGH;
+    public static final BitValue LOW = BitValue.LOW;
+    public static final BitValue UNKNOWN = BitValue.UNKNOWN;
     private BitValue value;
     protected String id;
 
